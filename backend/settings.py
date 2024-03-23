@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-7iwuld%=lonvcir2a&991bj#69f3jrzy!=-591^a8hgvr(%jpn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 ALLOWED_HOSTS = ["*"]
@@ -90,12 +90,12 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ePrinterv3',
-        'USER': 'adityav2',
-        'PASSWORD':'adiu2004',
-        'HOST':'172.31.48.1',
-        'PORT':'3306'
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'eprinter',
+        'USER': 'eprinter_owner',
+        'PASSWORD':'Yfolyxzg48WR',
+        'HOST':'ep-crimson-surf-a1weguwe.ap-southeast-1.aws.neon.tech',
+        'PORT':'5432'
     }
 }
 

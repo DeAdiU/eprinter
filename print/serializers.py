@@ -14,14 +14,15 @@ class FileSerializer(serializers.ModelSerializer):
         file = open(obj.pdf.path, 'rb') 
         pdfReader = PyPDF2.PdfReader(file) 
         totalPages = len(pdfReader.pages)
+        sam=0
         print(f"Total Pages: {totalPages}") 
         if obj.printSide=="Single":
-            price=(totalPages)/(1*obj.PagesPerSheet)*ratesofprint[obj.color]*1.5
+            sam=(totalPages)/(1*obj.PagesPerSheet)*ratesofprint[obj.color]*1.5
         elif obj.printSide=="Double":
-            price=(totalPages)/(1*obj.PagesPerSheet)*ratesofprint[obj.color]*2
-        return price *obj.numberOfCopies
+            sam=(totalPages)/(1*obj.PagesPerSheet)*ratesofprint[obj.color]*2
+        return sam*obj.numberOfCopies
 
-    def   get_token(self,obj):
+    def get_token(self,obj):
         token=""
         if obj.category=="Student":
             token=token+"S"
