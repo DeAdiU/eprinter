@@ -1,4 +1,4 @@
-#!/home/deadiu/Coding/SEIT/eprinter5/venv/bin/python
+#!/home/deadiu/Coding/SEIT/depl_eprinter/eprinter/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
