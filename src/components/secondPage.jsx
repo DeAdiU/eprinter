@@ -56,7 +56,7 @@ export default function SecondStep() {
 
       <div>
       <Button variant="contained" onClick={()=>setStep(1)} color="secondary.main" style={{ marginTop: '12px', marginRight: '16px' }}>Back</Button> 
-      <Button variant="contained" onClick={()=>setStep(3)} color="primary" style={{ marginTop: '12px', marginLeft: '16px', backgroundColor: '#00df9a', color: 'black'}}>Next</Button> 
+      <Button variant="contained" onClick={()=>setStep(3)} color="primary" style={{ marginTop: '12px', marginLeft: '50px', backgroundColor: '#00df9a', color: 'black'}}>Next</Button> 
       </div>
       
     </div>

@@ -33,7 +33,7 @@ export default function FirstStep() {
                     </Select>
                 </FormControl>
       <div>
-      <Button variant="contained" onClick={()=>setStep(2)} color="secondary.main" style={{ marginTop: '12px', backgroundColor: '#00df9a', color: 'black'  }}>Next</Button> 
+      <Button variant="contained" onClick={()=>setStep(2)} color="secondary.main" style={{ marginTop: '12px', backgroundColor: '#00df9a', color: 'black', marginLeft: '120px'  }}>Next</Button> 
       </div>
       
     </div>

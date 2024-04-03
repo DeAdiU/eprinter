@@ -115,7 +115,7 @@ export default function ThirdStep() {
                 </div>
                 <div>
                     <Button variant="contained" onClick={()=>setStep(2)} color="secondary.main" style={{ marginTop: '12px', marginRight: '16px' }}>Back</Button> 
-                    <Button variant="contained" onClick={handleOpen} color="primary" style={{ marginTop: '12px', marginLeft: '16px' , backgroundColor: '#00df9a', color: 'black'}}>Submit</Button> 
+                    <Button variant="contained" onClick={handleOpen} color="primary" style={{ marginTop: '12px', marginLeft: '127px' , backgroundColor: '#00df9a', color: 'black'}}>Submit</Button> 
                     <Modal
                         open={open}
                         aria-labelledby="modal-modal-title"

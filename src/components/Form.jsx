@@ -41,14 +41,14 @@ export const Form = () => {
   }
 
   return (
-    <div className="w-full py-[10rem] px-4 bg-white">
+    <div className="w-full py-[10rem] px-4 bg-gray-100">
         <div className='max-w-[1240px] mx-auto grid gap-8'>
-            <div className='w-full shadow-xl bg-gray-100 flex flex-col p-4 md:my-0 my-8 rounded-lg hover:scale-105 duration-300'>
+            <div className='w-full shadow-xl bg-white flex flex-col p-4 md:my-0 my-8 rounded-lg hover:scale-105 duration-300'>
             <h2 className='text-2xl font-bold text-center py-8'>Enter your details and document</h2>
             <form className='relative flex mx-auto gap-8 my-10'>
                 <div className="App">
-                    <div className=''>
-                        <Stepper style={{width: '18%'}} activeStep={currentStep- 1} orientation='horizontal' >
+                    <div className='flex justify-center'>
+                        <Stepper style={{width: '50%' , justifyContent: 'center'}} activeStep={currentStep- 1} orientation='horizontal' >
                         <Step>
                             <StepLabel></StepLabel>
                         </Step>
