@@ -1,53 +1,58 @@
 import { Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataContacts } from "../../data/mockData";
+import { complaintData } from "../../data/mockData";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 
-const Contacts = () => {
+const Complaints = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
-    { field: "registrarId", headerName: "Registrar ID" },
+    { field: "product_id", headerName: "Product ID" },
     {
-      field: "name",
-      headerName: "Name",
+      field: "costumer_id" ,
+      headerName: "Costumer ID",
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
-      field: "age",
-      headerName: "Age",
+      field: "employee_id",
+      headerName: "Employee ID",
       type: "number",
       headerAlign: "left",
       align: "left",
     },
     {
-      field: "phone",
-      headerName: "Phone Number",
+      field: "severity",
+      headerName: "Severity",
       flex: 1,
     },
     {
-      field: "email",
-      headerName: "Email",
+      field: "type",
+      headerName: "Type",
       flex: 1,
     },
     {
-      field: "address",
-      headerName: "Address",
+      field: "status",
+      headerName: "Status",
       flex: 1,
     },
     {
-      field: "city",
-      headerName: "City",
+      field: "created",
+      headerName: "Created At",
       flex: 1,
     },
     {
-      field: "zipCode",
-      headerName: "Zip Code",
+      field: "last_updated",
+      headerName: "Last Updated",
+      flex: 1,
+    },
+    {
+      field: "resolved_at",
+      headerName: "Resolved At",
       flex: 1,
     },
   ];
@@ -55,8 +60,8 @@ const Contacts = () => {
   return (
     <Box m="20px">
       <Header
-        title="CONTACTS"
-        subtitle="List of Contacts for Future Reference"
+        title="Complaints"
+        subtitle="List of Conplaints for Monitoring"
       />
       <Box
         m="40px 0 0 0"
@@ -91,7 +96,7 @@ const Contacts = () => {
         }}
       >
         <DataGrid
-          rows={mockDataContacts}
+          rows={complaintData}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
         />
@@ -100,4 +105,4 @@ const Contacts = () => {
   );
 };
 
-export default Contacts;
+export default Complaints;

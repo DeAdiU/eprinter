@@ -13,33 +13,48 @@ const Team = () => {
   const columns = [
     { field: "id", headerName: "ID" },
     {
-      field: "name",
-      headerName: "Name",
+      field: "status",
+      headerName: "status",
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
-      field: "age",
-      headerName: "Age",
+      field: "created_at",
+      headerName: "Created At",
       type: "number",
       headerAlign: "left",
       align: "left",
     },
     {
-      field: "phone",
-      headerName: "Phone Number",
+      field: "severity",
+      headerName: "Severity",
       flex: 1,
     },
     {
-      field: "email",
-      headerName: "Email",
+      field: "resolved_at",
+      headerName: "Resolved At",
+      flex: 1,
+    },
+    {
+      field: "type",
+      headerName: "Type",
+      flex: 1,
+    },
+    {
+      field: "product_id",
+      headerName: "Product ID",
+      flex: 1,
+    },
+    {
+      field: "customer_id",
+      headerName: "Costumer ID",
       flex: 1,
     },
     {
       field: "accessLevel",
       headerName: "Access Level",
       flex: 1,
-      renderCell: ({ row: { access } }) => {
+      renderCell: ({ row: {access} }) => {
         return (
           <Box
             width="60%"
@@ -48,17 +63,17 @@ const Team = () => {
             display="flex"
             justifyContent="center"
             backgroundColor={
-              access === "admin"
+              access === "solved"
                 ? colors.greenAccent[600]
-                : access === "manager"
+                : access === "pending"
                 ? colors.greenAccent[700]
                 : colors.greenAccent[700]
             }
             borderRadius="4px"
           >
-            {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
-            {access === "manager" && <SecurityOutlinedIcon />}
-            {access === "user" && <LockOpenOutlinedIcon />}
+            {access === "solved" }
+            {access === "pending"}
+            {access === "esclated" }
             <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
               {access}
             </Typography>

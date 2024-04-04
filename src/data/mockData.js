@@ -1,5 +1,133 @@
 import { tokens } from "../theme";
 
+
+import React from 'react'
+
+export const complaintData = [
+  {
+      id: 10,
+      product_id: 102,
+      costumer_id: 2356,
+      employee_id: 124,
+      severity: "High",
+      type: "Billing",
+      status: "Open",
+      created: "2024-03-15T09:30:00",
+      last_updated: "2024-03-16T11:45:00",
+      resolved_at: null
+  },
+  {
+      id: 11,
+      product_id: 101,
+      costumer_id: 3567,
+      employee_id: 213,
+      severity: "Medium",
+      type: "Fraud",
+      status: "Open",
+      created: "2024-03-16T14:20:00",
+      last_updated: "2024-03-17T10:55:00",
+      resolved_at: null
+  },
+  {
+      id: 12,
+      product_id: 103,
+      costumer_id: 4892,
+      employee_id: 312,
+      severity: "Low",
+      type: "Account Management",
+      status: "Closed",
+      created: "2024-03-17T13:45:00",
+      last_updated: "2024-03-18T09:30:00",
+      resolved_at: "2024-03-18T11:20:00"
+  },
+  {
+      id: 13,
+      product_id: 104,
+      costumer_id: 5698,
+      employee_id: 421,
+      severity: "High",
+      type: "Billing",
+      status: "Open",
+      created: "2024-03-18T16:10:00",
+      last_updated: "2024-03-19T12:25:00",
+      resolved_at: null
+  },
+  {
+      id: 14,
+      product_id: 102,
+      costumer_id: 6789,
+      employee_id: 124,
+      severity: "Medium",
+      type: "Account Management",
+      status: "Open",
+      created: "2024-03-19T10:20:00",
+      last_updated: "2024-03-20T08:40:00",
+      resolved_at: null
+  },
+  {
+      id: 15,
+      product_id: 101,
+      costumer_id: 7456,
+      employee_id: 213,
+      severity: "Low",
+      type: "Fraud",
+      status: "Closed",
+      created: "2024-03-20T11:55:00",
+      last_updated: "2024-03-21T14:30:00",
+      resolved_at: "2024-03-21T15:40:00"
+  },
+  {
+      id: 16,
+      product_id: 103,
+      costumer_id: 8321,
+      employee_id: 312,
+      severity: "High",
+      type: "Billing",
+      status: "Open",
+      created: "2024-03-21T09:30:00",
+      last_updated: "2024-03-22T11:45:00",
+      resolved_at: null
+  },
+  {
+      id: 17,
+      product_id: 104,
+      costumer_id: 9245,
+      employee_id: 421,
+      severity: "Medium",
+      type: "Account Management",
+      status: "Open",
+      created: "2024-03-22T14:20:00",
+      last_updated: "2024-03-23T10:55:00",
+      resolved_at: null
+  },
+  {
+      id: 18,
+      product_id: 102,
+      costumer_id: 1032,
+      employee_id: 124,
+      severity: "Low",
+      type: "Fraud",
+      status: "Closed",
+      created: "2024-03-23T13:45:00",
+      last_updated: "2024-03-24T09:30:00",
+      resolved_at: "2024-03-24T11:20:00"
+  },
+  {
+      id: 19,
+      product_id: 101,
+      costumer_id: 1105,
+      employee_id: 213,
+      severity: "High",
+      type: "Billing",
+      status: "Open",
+      created: "2024-03-24T16:10:00",
+      last_updated: "2024-03-25T12:25:00",
+      resolved_at: null
+  }
+]
+
+
+
 export const mockDataTeam = [
   {
     id: 1,
@@ -316,6 +444,16 @@ export const mockTransactions = [
     cost: "133.45",
   },
 ];
+
+export const mockCostumer = [
+  {
+    txId: "01e4dsa",
+    user: "johndoe",
+    date: "2021-09-01",
+    cost: "43.95",
+  },
+];
+
 
 export const mockBarData = [
   {

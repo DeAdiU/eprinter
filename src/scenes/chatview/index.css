@@ -1,0 +1,87 @@
+.App {
+    /* font-family: sans-serif; */
+    /* text-align: center; */
+  }
+  html,
+  body {
+    font-family: -apple-system;
+    margin: 0;
+  }
+  h1 {
+    font-size: 48px;
+  }
+  
+  h2 {
+    font-size: 36px;
+  }
+  .container {
+    width: 1066px;
+    height: 600px;
+    margin: 0 auto;
+  }
+  
+  .install {
+    text-align: center;
+    margin: 20px auto;
+  }
+  
+  code {
+    margin: 20px auto;
+    background-color: transparent;
+    padding: 10px 20px;
+  }
+  
+  input {
+    background-color: transparent;
+    border: none;
+    border-top: 1px solid #ddd;
+    font-size: 16px;
+    padding: 30px;
+    width: 100%;
+  }
+
+  input::placeholder{
+    color: #00ffbb;
+    font-weight: bold;
+  }
+  
+  input:focus {
+    outline: none;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .chatfeed-wrapper {
+    box-shadow: 0 20px 20px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    width: 1066px;
+    height: 900px;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    padding: 0px;
+  }
+  
+  #chat-panel {
+    padding: 0px 10px;
+  }
+  
+  .chat-history {
+    display: block;
+    min-height: 800px;
+  }
+  
+  .outer {
+    display: block;
+    height: 50%;
+    overflow-y: scroll;
+    position: relative;
+  }
+  
+  .inner {
+    margin: 0 auto;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
