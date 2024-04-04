@@ -6,6 +6,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { ChatFeed, ChatBubble, BubbleGroup, Message } from "react-chat-ui";
+import io from 'socket.io-client';
 import Header from "../../components/Header";
 import React from "react";
 import StatBox from "../../components/StatBox";
@@ -36,8 +37,6 @@ const styles = {
 
 const users = {
   0: "You",
-  Mark: "Mark",
-  2: "Evan"
 };
 
 const ChatView = () => {
@@ -311,20 +310,32 @@ class Chat extends React.Component {
   constructor() {
     super();
     this.state = {
-      messages: [
-        new Message({ id: "Mark", message: "Hey guys!", senderName: "Mark" }),
-        new Message({
-          id: 2,
-          message: (
-            <p>
-              <span>11:50:</span>Hey! Evan here. react-chat-ui is pretty dooope.
-            </p>
-          ),
-          senderName: "Evan"
-        })
-      ],
-      curr_user: 0
+      messages: [],
+      curr_user: 0,
+      socket:null,
     };
+  }
+
+  componentDidMount() {
+    // Establish connection on component mount
+    const socket = io('https://websocket-api-51zi.onrender.com/'); // Replace with your server URL
+    this.setState({ socket });
+    let damnn=23
+
+    // Listen for incoming messages from the server
+    socket.on('receive-msg', (damnn,mess,time) => {
+      this.setState((prevState) => ({
+        messages: [...prevState.messages, mess], // Update messages state
+      }));
+      console.log("Message aarae bhaii")
+    });
+  }
+  componentWillUnmount() {
+    // Disconnect from socket on component unmount
+    const { socket } = this.state;
+    if (socket) {
+      socket.disconnect();
+    }
   }
 
   onPress(user) {
@@ -337,20 +348,17 @@ class Chat extends React.Component {
     if (!input.value) {
       return false;
     }
-    this.pushMessage(this.state.curr_user, input.value);
+    const message = input.value;
+    const time = new Date();
+    const { socket, curr_user } = this.state;
+    if (socket) {
+      // Emit message event to the server
+      socket.emit('chat-with', message, time);
+      console.log("suiii")
+    }
+
     input.value = "";
     return true;
-  }
-
-  pushMessage(recipient, message) {
-    const prevState = this.state;
-    const newMessage = new Message({
-      id: recipient,
-      message,
-      senderName: users[recipient]
-    });
-    prevState.messages.push(newMessage);
-    this.setState(this.state);
   }
 
   render() {
