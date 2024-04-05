@@ -4,10 +4,27 @@ import { tokens } from "../../theme";
 import { complaintData } from "../../data/mockData";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
+import {Typography} from "@mui/material";
+import ChatView from "../chatview";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Complaints = () => {
   const theme = useTheme();
+  const navigate=useNavigate()
   const colors = tokens(theme.palette.mode);
+  const [selectedRow,setselectedRow] = useState(null);
+  const handleRowClick = (params) => { 
+    const complaintId = params.row.id;   
+    if(params.row.status=="Open"){
+    setselectedRow(params.row); // Update state with selected row data
+  
+    if (selectedRow) {
+      navigate(`/complaints/${complaintId}`, { state: selectedRow }); 
+      console.log(selectedRow)// Route to ChatView with state
+  }
+  }
+};
 
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
@@ -36,11 +53,6 @@ const Complaints = () => {
       flex: 1,
     },
     {
-      field: "status",
-      headerName: "Status",
-      flex: 1,
-    },
-    {
       field: "created",
       headerName: "Created At",
       flex: 1,
@@ -55,6 +67,12 @@ const Complaints = () => {
       headerName: "Resolved At",
       flex: 1,
     },
+    {
+      field: "status",
+      headerName: "Status",
+      flex: 1,
+    },
+
   ];
 
   return (
@@ -99,6 +117,7 @@ const Complaints = () => {
           rows={complaintData}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
+          onRowClick={handleRowClick}
         />
       </Box>
     </Box>

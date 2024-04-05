@@ -1,0 +1,72 @@
+rep:
+    login
+    register
+    get_list_assigned_complaints
+    get_single_active_complaint
+    update_complaint_status
+        AfterClose:
+            dyanmo_denormalize_resolved_complaint
+            analytics_specific_redshift_resolved
+            summary_generation:
+                llm
+        
+    
+    get_past_complaints
+    peer_transfer:
+        summary_generation_of_current_before_transfer
+    escalate_manager_transfer
+        summary_generation_of_current_before_transfer
+    connect_to_server(for chat)(socket)
+    View_all_customer_documents
+
+
+
+
+
+manager:
+        complaint_transfer
+        list_of_unassigned/anamoly
+        get_rep_list
+        get_single_rep_realtime_analytics
+        get_team_analytics(need to decide fields)
+        forcefull_complaint_assignmnet_to_rep
+
+
+superviser:
+        forcefull_complaint_assignmnet_to_rep
+        forcefull_complaint_assignmnet_to_manager
+        get_all_teams_realtime_analytics(need to decide fields)
+        
+
+
+customer: 
+        make_complaint
+            nested_priority_assignmnet_to_llm_at_complaint_creation
+            nexted_product_assignmnet_to_llm_at_complaint_creation
+        active complaints
+          single active complaint
+          single active complaint chat room (socket)
+          active query
+        standard_querry_reply(pseudo chat bot)
+        all_documents_uploaded_view
+        assign_document_to_Complaint_instance
+
+
+
+Helper:
+make_custom_text/propmpts_for llm_for:
+    priority_assignmnet
+    product_assignmnet
+    summary_generation
+when_feeding_to_llm_must_remove_uneccsessary_fields_from_dyanamodb_and_messages/sms/email_should_only_contain
+
+
+Schedulars/algos:
+end_complaint_resolution_after_x_time(after rep resolved)
+complaint_assignment algo
+UnassignedComplaint_queue_Scheduling(sorted queue based on priority and time)
+
+AfterResolution:
+    dyanmo_denormalize_resolved_complaint
+    analytics_specific_redshift_resolved
+    

@@ -10,12 +10,16 @@ import io from 'socket.io-client';
 import Header from "../../components/Header";
 import React from "react";
 import StatBox from "../../components/StatBox";
-
+import { useState } from "react";
+import Chat2 from "./Chat2";
+import Chat from "./Chat";
+import Chat3 from "./Chat3";
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
+import { useLocation } from "react-router-dom";
 
 
-
+const socket = io.connect("https://deploying-ws-server-1.onrender.com/");
 const styles = {
   button: {
     backgroundColor: "#4cceac",
@@ -40,6 +44,18 @@ const users = {
 };
 
 const ChatView = () => {
+  const [username, setUsername] = useState("");
+  const [room, setRoom] = useState("");
+  const [showChat, setShowChat] = useState(false);
+  const location = useLocation();
+  const selectedRowData = location.state;
+
+  const joinRoom = () => {
+    if (username !== "" && room !== "") {
+      socket.emit("join_room", room);
+      setShowChat(true);
+    }
+  };
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const status = [
@@ -82,7 +98,7 @@ const ChatView = () => {
     },
     {
       value: 'escalated',
-      label: 'Fucked Bitches and paid but payment',
+      label: 'Fucked Bitches and paid but payment was unscucessful',
     },  
   ];
   
@@ -135,7 +151,30 @@ const ChatView = () => {
           height="900px"
           borderRadius={2}
         >      
-          <Chat/>
+          <div className="App">
+            {!showChat ? (
+              <div className="joinChatContainer">
+                <h3>Join A Chat</h3>
+                <input
+                  type="text"
+                  placeholder="John..."
+                  onChange={(event) => {
+                    setUsername(event.target.value);
+                  }}
+                />
+                <input
+                  type="text"
+                  placeholder="Room ID..."
+                  onChange={(event) => {
+                    setRoom(event.target.value);
+                  }}
+                />
+                <button onClick={joinRoom}>Join A Room</button>
+              </div>
+            ) : (
+              <Chat socket={socket} username={username} room={room} />
+            )}
+    </div>
         </Box>
 
         <Box
@@ -193,7 +232,7 @@ const ChatView = () => {
                   variant="h5"
                   fontWeight="600"
                 >
-                  Customer Name :
+                  Customer ID : {selectedRowData.costumer_id}
                 </Typography>
               </Box>
               <Typography
@@ -306,85 +345,85 @@ const ChatView = () => {
 
 export default ChatView;
 
-class Chat extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      messages: [],
-      curr_user: 0,
-      socket:null,
-    };
-  }
+// class Chat extends React.Component {
+//   constructor() {
+//     super();
+//     this.state = {
+//       messages: [],
+//       curr_user: 0,
+//       socket:null,
+//     };
+//   }
 
-  componentDidMount() {
-    // Establish connection on component mount
-    const socket = io('https://websocket-api-51zi.onrender.com/'); // Replace with your server URL
-    this.setState({ socket });
-    let damnn=23
+//   componentDidMount() {
+//     // Establish connection on component mount
+//     const socket = io('https://websocket-api-51zi.onrender.com/'); // Replace with your server URL
+//     this.setState({ socket });
+//     let damnn="12233";
 
-    // Listen for incoming messages from the server
-    socket.on('receive-msg', (damnn,mess,time) => {
-      this.setState((prevState) => ({
-        messages: [...prevState.messages, mess], // Update messages state
-      }));
-      console.log("Message aarae bhaii")
-    });
-  }
-  componentWillUnmount() {
-    // Disconnect from socket on component unmount
-    const { socket } = this.state;
-    if (socket) {
-      socket.disconnect();
-    }
-  }
+//     // Listen for incoming messages from the server
+//     socket.on('receive-msg', (damnn,mess,time) => {
+//       this.setState((prevState) => ({
+//         messages: [...prevState.messages, mess], // Update messages state
+//       }));
+//       console.log("Message aarae bhaii")
+//     });
+//   }
+//   componentWillUnmount() {
+//     // Disconnect from socket on component unmount
+//     const { socket } = this.state;
+//     if (socket) {
+//       socket.disconnect();
+//     }
+//   }
 
-  onPress(user) {
-    this.setState({ curr_user: user });
-  }
+//   onPress(user) {
+//     this.setState({ curr_user: user });
+//   }
 
-  onMessageSubmit(e) {
-    const input = this.message;
-    e.preventDefault();
-    if (!input.value) {
-      return false;
-    }
-    const message = input.value;
-    const time = new Date();
-    const { socket, curr_user } = this.state;
-    if (socket) {
-      // Emit message event to the server
-      socket.emit('chat-with', message, time);
-      console.log("suiii")
-    }
+//   onMessageSubmit(e) {
+//     const input = this.message;
+//     e.preventDefault();
+//     if (!input.value) {
+//       return false;
+//     }
+//     const message = input.value;
+//     const time = new Date();
+//     const { socket, curr_user } = this.state;
+//     if (socket) {
+//       // Emit message event to the server
+//       socket.emit('chat-with', message, time);
+//       console.log("suiii")
+//     }
 
-    input.value = "";
-    return true;
-  }
+//     input.value = "";
+//     return true;
+//   }
 
-  render() {
-    return (
-      <div className="container">
-        <div className="chatfeed-wrapper">
-          <ChatFeed
-            maxHeight={250}
-            messages={this.state.messages} // Boolean: list of message objects
-            showSenderName
-          />
-          <form onSubmit={e => this.onMessageSubmit(e)}>
-            <input
-              ref={m => {
-                this.message = m;
-              }}
-              placeholder="Type a message..."
-              className="message-input"
-            />
-          </form>
-          <div
-            style={{ display: "flex", justifyContent: "center", marginTop: 10 }}
-          >
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
+//   render() {
+//     return (
+//       <div className="container">
+//         <div className="chatfeed-wrapper">
+//           <ChatFeed
+//             maxHeight={250}
+//             messages={this.state.messages} // Boolean: list of message objects
+//             showSenderName
+//           />
+//           <form onSubmit={e => this.onMessageSubmit(e)}>
+//             <input
+//               ref={m => {
+//                 this.message = m;
+//               }}
+//               placeholder="Type a message..."
+//               className="message-input"
+//             />
+//           </form>
+//           <div
+//             style={{ display: "flex", justifyContent: "center", marginTop: 10 }}
+//           >
+//           </div>
+//         </div>
+//       </div>
+//     );
+//   }
+// }
