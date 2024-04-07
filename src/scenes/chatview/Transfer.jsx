@@ -23,14 +23,6 @@ function Transfer( id={id}) {
       value: 'closed',
       label: 'Closed',
     },
-    {
-      value: 'escalated',
-      label: 'Escalated',
-    },  
-    {
-      value: 'transfer_to',
-      label: 'Transfer To',
-    },  
   ];
     const [open, setOpen] = useState(false);
     // const [selectedFile, setSelectedFile] = useState(null);
@@ -90,35 +82,6 @@ function Transfer( id={id}) {
                 console.log(err);
                 console.log(id.id)
               }
-        }
-        else if(Status=="escalated"){
-            navigate('/')
-        }
-        else{
-            try {
-                if (!URL) {
-                  console.log('URL is not defined');
-                  return;
-                }
-          
-                const config = {
-                  headers: { 
-                    'Content-Type': 'application/json', 
-                    'Authorization': `Bearer ${token}` 
-                  },
-                };
-          
-                const response = await axios.post(URL+'get_team_members/',{"id":1},config);
-          
-                if (!response?.data) {
-                  console.log('Response data is empty');
-                  return;
-                }
-                setMembers(response.data)
-              } catch (err) {
-                console.log(err);
-              }
-            setOpen(true);
         }
     }
     const handleClickOpen = () => {

@@ -78,14 +78,7 @@ const ChatView = () => {
       value: 'closed',
       label: 'Closed',
     },
-    {
-      value: 'escalated',
-      label: 'Escalated',
-    },  
-    {
-      value: 'transfer_to',
-      label: 'Transfer To',
-    },  
+    
   ];
 
   const past = [
@@ -169,12 +162,12 @@ const handleSubmit = async (e) => {
                   },
                 };
           
-                const response= await axios.get(USER_URL+'customer/'+selectedRowData.customer_id+'/documents',config);
+                const response= await axios.get(USER_URL+'customer/'+2+'/documents',config);
                 if (!response?.data) {
                   console.log('Response data is empty');
                   return;
                 }
-                
+                console.log(response.data)
                 setCustomerDocs(response.data)
                 console.log(customerDocs)
               } catch (err) {
@@ -194,7 +187,7 @@ const handleSubmit = async (e) => {
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
+        <Header title="Chat View" subtitle="Solve the requests" />
         <Box
           gridColumn="span 3"
           display="flex"
@@ -245,7 +238,7 @@ const handleSubmit = async (e) => {
                 <button onClick={joinRoom}>Join A Room</button>
               </div>
             ) : (
-              <Chat socket={socket} username={username} room={room} />
+              <Chat1 socket={socket} username={username} room={room} />
             )}
             
     </div>
@@ -352,7 +345,7 @@ const handleSubmit = async (e) => {
                   variant="h5"
                   fontWeight="600"
                 >
-                  Complaint Description :
+                  Request Description :
                 </Typography>
               </Box>
               <Typography

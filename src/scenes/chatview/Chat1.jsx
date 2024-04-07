@@ -106,7 +106,7 @@ function Chat1({ socket, username, room, complaintId }) {
     return () => {
       socket.off("receive_message");
     };
-  }, [socket, previousMessage, presentMessage]);
+  }, [socket]);
 
   return (
     <div className="chat-window">

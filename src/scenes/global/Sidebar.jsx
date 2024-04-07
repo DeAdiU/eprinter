@@ -104,10 +104,10 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Mark Zukerberg
+                  Elon Musk
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  Company is minex``
+                  MANAGER
                 </Typography>
               </Box>
             </Box>
@@ -129,7 +129,7 @@ const Sidebar = () => {
               Data
             </Typography>
             <Item
-              title="Complaints"
+              title="Requests"
               to="/complaints"
               icon={<ContactsOutlinedIcon />}
               selected={selected}

@@ -6,7 +6,7 @@ import { tokens } from "../../theme";
 
 import CheckIcon from '@mui/icons-material/Check';
 const URL = "https://barcklays.onrender.com/api/employee/"
-let token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6InNvaGFtNCIsImVtYWlsIjoiZW1wb3llZTFAZ21haWwuY29tIiwicm9sZSI6IkNVU1RPTUVSX0NBUkVfUkVQIiwiZW1wbG95ZWVfaWQiOiIxMjM0NTY3ODkxIiwiaWF0IjoxNzEyNDI0NzcwfQ.nmS57dnlbM0wZzV330qqVSR0-36i72jszkqENiuw-4s'
+let token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6InNvaGFtNCIsImVtYWlsIjoiZW1wb3llZTJAZ21haWwuY29tIiwicm9sZSI6Ik1BTkFHRVIiLCJlbXBsb3llZV9pZCI6IjEyMzQ1Njc4OTYiLCJpYXQiOjE3MTI0MjQ3MjN9.sqq8n5xCdSvYcT-lR2AwaU6BldySg_i9I00uMCUg-pI"
 
 
 const SendNotification = () => {
