@@ -1,20 +1,26 @@
 import { Box, Typography, useTheme } from "@mui/material";
+import { useEffect, useState } from "react";
 import { tokens } from "../../theme";
-import { mockTransactions } from "../../data/mockData";
-
-import EmailIcon from "@mui/icons-material/Email";
-import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-
+import ArticleIcon from '@mui/icons-material/Article';
 import Header from "../../components/Header";
-
+import FeedIcon from '@mui/icons-material/Feed';
+import FactCheckIcon from '@mui/icons-material/FactCheck';
 import StatBox from "../../components/StatBox";
-
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
+import axios from 'axios'
+import {Button} from "@mui/material";
+import { useNavigate } from "react-router-dom";
+const URL = "https://barcklays.onrender.com/api/employee/dashboard/"
+let token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6InNvaGFtNCIsImVtYWlsIjoiZW1wb3llZTFAZ21haWwuY29tIiwicm9sZSI6IkNVU1RPTUVSX0NBUkVfUkVQIiwiZW1wbG95ZWVfaWQiOiIxMjM0NTY3ODkxIiwiaWF0IjoxNzEyNDI0NzcwfQ.nmS57dnlbM0wZzV330qqVSR0-36i72jszkqENiuw-4s'
+
 
 const Dashboard = () => {
   const theme = useTheme();
+  const [activeComplaints, setActiveComplaints] = useState([]);
+  const [recentResolvedComplaints, setRecentResolvedComplaints] = useState([]);
+  const navigate=useNavigate();
+
   const colors = tokens(theme.palette.mode);
   const currencies = [
     {
@@ -28,9 +34,44 @@ const Dashboard = () => {
     {
       value: 'Inactive',
       label: 'Inactive',
-    },  
+    }, 
   ];
+  useEffect(() => {
+    handleSubmit({ preventDefault: () => { } });
+  }, []);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (!URL) {
+        console.log('URL is not defined');
+        return;
+      }
+
+      const config = {
+        headers: { 
+          'Content-Type': 'application/json', 
+          'Authorization': `Bearer ${token}` 
+        },
+      };
+
+      const response = await axios.get(URL, config);
+
+      if (!response?.data) {
+        console.log('Response data is empty');
+        return;
+      }
+      console.log(response.data)
+      setActiveComplaints(response.data.activeComplaints);
+      setRecentResolvedComplaints(response.data.recentResolvedComplaints);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  let progress=recentResolvedComplaints.length/(activeComplaints.length+recentResolvedComplaints.length)*100
+  let total=activeComplaints.length+recentResolvedComplaints.length
+  let progressact=(activeComplaints.length/total)*100
   return (
     <Box m="20px">
       {/* HEADER */}
@@ -56,12 +97,12 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="123"
+            title={activeComplaints.length+recentResolvedComplaints.length}
             subtitle="Total number of complaints"
-            progress="0.75"
-            increase="+14%"
+            progress="1"
+            increase={'+100%'}
             icon={
-              <EmailIcon
+              <ArticleIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
@@ -75,12 +116,12 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="105"
+            title={activeComplaints.length} 
             subtitle="Number of Active Complaints"
-            progress="0.50"
-            increase="+21%"
+            progress={activeComplaints.length/total}
+            increase={"+"+progressact+'%'}
             icon={
-              <PointOfSaleIcon
+              <FeedIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
@@ -94,12 +135,12 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="32,441"
+            title={recentResolvedComplaints.length}
             subtitle="Number of Resolved Complaints"
-            progress="0.30"
-            increase="+5%"
+            progress={recentResolvedComplaints.length/(activeComplaints.length+recentResolvedComplaints.length)}
+            increase={"+"+progress+'%'}
             icon={
-              <PersonAddIcon
+              <FactCheckIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
@@ -146,14 +187,15 @@ const Dashboard = () => {
               Assigned Complaints
             </Typography>
           </Box>
-          {mockTransactions.map((transaction, i) => (
+          {activeComplaints.map((complain, i) => (
             <Box
-              key={`${transaction.txId}-${i}`}
+              key={i}
               display="flex"
               justifyContent="space-between"
               alignItems="center"
               borderBottom={`4px solid ${colors.primary[500]}`}
               p="15px"
+              cursor="pointer"
             >
               <Box>
                 <Typography
@@ -161,20 +203,24 @@ const Dashboard = () => {
                   variant="h5"
                   fontWeight="600"
                 >
-                  {transaction.txId}
+                  {complain.title}
                 </Typography>
                 <Typography color={colors.grey[100]}>
-                  {transaction.user}
+                  {complain.product_name}
                 </Typography>
               </Box>
-              <Box color={colors.grey[100]}>{transaction.date}</Box>
-              <Box
-                backgroundColor={colors.greenAccent[500]}
+              <Box color={colors.grey[100]}>{complain.severity}</Box>
+              <Button
+                variant="contained"
+                color='secondary'
                 p="5px 10px"
                 borderRadius="4px"
+                onClick={() => {
+                  navigate(`/${complain.id}`, { state: complain });
+                }}
               >
-                ${transaction.cost}
-              </Box>
+                {complain.status}
+              </Button>
             </Box>
           ))}
         </Box>
@@ -198,9 +244,8 @@ const Dashboard = () => {
               Recently Solved Complaints
             </Typography>
           </Box>
-          {mockTransactions.map((transaction, i) => (
+          {recentResolvedComplaints.map((solve, i) => (
             <Box
-              key={`${transaction.txId}-${i}`}
               display="flex"
               justifyContent="space-between"
               alignItems="center"
@@ -213,19 +258,16 @@ const Dashboard = () => {
                   variant="h5"
                   fontWeight="600"
                 >
-                  {transaction.txId}
+                  {solve.title}
                 </Typography>
                 <Typography color={colors.grey[100]}>
-                  {transaction.user}
+                  {solve.product_name}
                 </Typography>
               </Box>
-              <Box color={colors.grey[100]}>{transaction.date}</Box>
+              <Box color={colors.grey[100]}>{solve.resolution_time}</Box>
               <Box
-                backgroundColor={colors.greenAccent[500]}
-                p="5px 10px"
-                borderRadius="4px"
               >
-                ${transaction.cost}
+                {solve.status}
               </Box>
             </Box>
           ))}

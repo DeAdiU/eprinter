@@ -1,4 +1,4 @@
-import { tokens } from "../theme";
+  import { tokens } from "../theme";
 
 
 import React from 'react'
@@ -7,8 +7,8 @@ export const complaintData = [
   {
       id: 10,
       product_id: 102,
-      costumer_id: 2356,
-      employee_id: 124,
+      costumer_id: 2,
+      employee_id: 3,
       severity: "High",
       type: "Billing",
       status: "Open",
@@ -1419,3 +1419,131 @@ export const mockGeographyData = [
     value: 171135,
   },
 ];
+
+export const assignedcomplaintData = [
+  {
+    "title": "Missing Deposit",
+    "type": "Transaction Issue",
+    "severity": "High",
+    "status": "Open"
+  },
+  {
+    "title": "Discrepancy in Monthly Statement",
+    "type": "Account Issue",
+    "severity": "Medium",
+    "status": "Open"
+  },
+  {
+    "title": "Credit Card Fraud Alert",
+    "type": "Fraud",
+    "severity": "High",
+    "status": "Open"
+  },
+  {
+    "title": "Loan Approval Delay",
+    "type": "Loan",
+    "severity": "Medium",
+    "status": "Open"
+  },
+  {
+    "title": "Overcharged Interest Rate",
+    "type": "Account Issue",
+    "severity": "High",
+    "status": "Open"
+  },
+  {
+    "title": "Unrecognized Transaction on Bank Statement",
+    "type": "Transaction Issue",
+    "severity": "Medium",
+    "status": "Open"
+  },
+  {
+    "title": "Account Closure Dispute",
+    "type": "Account Issue",
+    "severity": "Medium",
+    "status": "Open"
+  },
+  {
+    "title": "Missing Wire Transfer",
+    "type": "Transaction Issue",
+    "severity": "High",
+    "status": "Open"
+  },
+  {
+    "title": "Late Payment Penalty Error",
+    "type": "Billing",
+    "severity": "Medium",
+    "status": "Open"
+  },
+  {
+    "title": "Incorrect Credit Report Information",
+    "type": "Credit",
+    "severity": "High",
+    "status": "Open"
+  }
+]
+
+
+export const solvedComplaints = [
+  {
+    "title": "Unauthorized Transaction Dispute",
+    "type": "Fraud",
+    "resolution_time": "3 days",
+    "status": "Resolved"
+  },
+  {
+    "title": "Account Balance Mismatch",
+    "type": "Account Issue",
+    "resolution_time": "2 days",
+    "status": "Resolved"
+  },
+  {
+    "title": "Credit Card Billing Error",
+    "type": "Billing",
+    "resolution_time": "5 days",
+    "status": "Resolved"
+  },
+  {
+    "title": "Loan Application Rejected",
+    "type": "Loan",
+    "resolution_time": "7 days",
+    "status": "Resolved"
+  },
+  {
+    "title": "ATM Withdrawal Dispute",
+    "type": "Transaction Issue",
+    "resolution_time": "4 days",
+    "status": "Resolved"
+  },
+  {
+    "title": "Suspicious Activity Alert",
+    "type": "Security",
+    "resolution_time": "1 day",
+    "status": "Resolved"
+  },
+  {
+    "title": "Delayed Funds Transfer",
+    "type": "Transaction Issue",
+    "resolution_time": "6 days",
+    "status": "Resolved"
+  },
+  {
+    "title": "Interest Rate Adjustment",
+    "type": "Account Issue",
+    "resolution_time": "2 days",
+    "status": "Resolved"
+  },
+  {
+    "title": "Credit Score Inquiry Dispute",
+    "type": "Credit",
+    "resolution_time": "4 days",
+    "status": "Resolved"
+  },
+  {
+    "title": "Incorrect Account Closure Fee",
+    "type": "Fee Dispute",
+    "resolution_time": "3 days",
+    "status": "Resolved"
+  }
+]
+

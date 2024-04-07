@@ -17,26 +17,26 @@ export const tokens = (mode) => ({
           900: "#141414",
         },
         primary: {
-          100: "#d0d1d5",
-          200: "#a1a4ab",
-          300: "#727681",
-          400: "#1F2A40",
-          500: "#141b2d",
-          600: "#101624",
-          700: "#0c101b",
-          800: "#080b12",
-          900: "#040509",
+          100: "#ccd7df",
+          200: "#99b0be",
+          300: "#66889e",
+          400: "#33617d",
+          500: "#00395d",
+          600: "#002e4a",
+          700: "#002238",
+          800: "#001725",
+          900: "#000b13"
         },
         greenAccent: {
-          100: "#dbf5ee",
-          200: "#b7ebde",
-          300: "#94e2cd",
-          400: "#70d8bd",
-          500: "#4cceac",
-          600: "#3da58a",
-          700: "#2e7c67",
-          800: "#1e5245",
-          900: "#0f2922",
+          900: "#cceffc",
+          800: "#99dff9",
+          700: "#66cef5",
+          600: "#33bef2",
+          400: "#00aeef",
+          500: "#008bbf",
+          300: "#00688f",
+          200: "#004660",
+          100: "#002330"
         },
         redAccent: {
           100: "#f8dcdb",
@@ -85,15 +85,15 @@ export const tokens = (mode) => ({
           900: "#d0d1d5",
         },
         greenAccent: {
-          100: "#0f2922",
-          200: "#1e5245",
-          300: "#2e7c67",
-          400: "#3da58a",
-          500: "#4cceac",
-          600: "#70d8bd",
-          700: "#94e2cd",
-          800: "#b7ebde",
-          900: "#dbf5ee",
+          100: "#cceffc",
+          200: "#99dff9",
+          300: "#66cef5",
+          400: "#33bef2",
+          500: "#00aeef",
+          600: "#008bbf",
+          700: "#00688f",
+          800: "#004660",
+          900: "#002330"
         },
         redAccent: {
           100: "#2c100f",
@@ -147,7 +147,7 @@ export const themeSettings = (mode) => {
         : {
             // palette values for light mode
             primary: {
-              main: colors.primary[100],
+              main: colors.primary[500],
             },
             secondary: {
               main: colors.greenAccent[500],
@@ -212,3 +212,4 @@ export const useMode = () => {
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   return [theme, colorMode];
 };
+

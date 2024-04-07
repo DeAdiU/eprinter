@@ -20,7 +20,7 @@ const Complaints = () => {
     setselectedRow(params.row); // Update state with selected row data
   
     if (selectedRow) {
-      navigate(`/complaints/${complaintId}`, { state: selectedRow }); 
+      navigate(`/${complaintId}`, { state: selectedRow }); 
       console.log(selectedRow)// Route to ChatView with state
   }
   }

@@ -1,22 +1,25 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
-import { mockTransactions } from "../../data/mockData";
+
 import './index.css'
-import EmailIcon from "@mui/icons-material/Email";
-import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import { ChatFeed, ChatBubble, BubbleGroup, Message } from "react-chat-ui";
+
 import io from 'socket.io-client';
 import Header from "../../components/Header";
 import React from "react";
-import StatBox from "../../components/StatBox";
-import { useState } from "react";
-import Chat2 from "./Chat2";
+
+import { useState,useEffect } from "react";
+
 import Chat from "./Chat";
-import Chat3 from "./Chat3";
-import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
-import { useLocation } from "react-router-dom";
+import Transfer  from './Transfer'
+import axios from "axios";
+
+import Chat1 from "./Chat1";
+import { useLocation,useNavigate } from "react-router-dom";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+const USER_URL="https://barcklays.onrender.com/api/employee/"
+let token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6InNvaGFtNCIsImVtYWlsIjoiZW1wb3llZTFAZ21haWwuY29tIiwicm9sZSI6IkNVU1RPTUVSX0NBUkVfUkVQIiwiZW1wbG95ZWVfaWQiOiIxMjM0NTY3ODkxIiwiaWF0IjoxNzEyNDI0NzcwfQ.nmS57dnlbM0wZzV330qqVSR0-36i72jszkqENiuw-4s'
+
 
 
 const socket = io.connect("https://deploying-ws-server-1.onrender.com/");
@@ -49,13 +52,21 @@ const ChatView = () => {
   const [showChat, setShowChat] = useState(false);
   const location = useLocation();
   const selectedRowData = location.state;
+  const [selectedData ,setselectedData]=useState(null)
+  const navigate=useNavigate()
+  const [customerData,setCustomerData]=useState({})
+  const [customerDocs, setCustomerDocs] = useState([]);
+  var rooom=toString(room)
 
   const joinRoom = () => {
     if (username !== "" && room !== "") {
       socket.emit("join_room", room);
-      setShowChat(true);
+      setShowChat(true)
     }
   };
+  const handleClick=()=>{
+    setselectedData()
+  }
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const status = [
@@ -64,12 +75,16 @@ const ChatView = () => {
       label: 'Resolved',
     },
     {
-      value: 'pending',
-      label: 'Pending',
+      value: 'closed',
+      label: 'Closed',
     },
     {
       value: 'escalated',
       label: 'Escalated',
+    },  
+    {
+      value: 'transfer_to',
+      label: 'Transfer To',
     },  
   ];
 
@@ -84,23 +99,95 @@ const ChatView = () => {
     },
     {
       value: 'escalated',
-      label: 'Fucked Bitches and paid but payment',
+      label: 'spaid but payment',
     },  
   ];
   const docs = [
     {
-      value: 'solved',
+      id:'23',
+      value: 'problem_image',
       label: 'Problem Image',
+      file:'src/data/Unit-01.pdf'
     },
     {
-      value: 'pending',
-      label: 'PasBook',
-    },
-    {
-      value: 'escalated',
-      label: 'Fucked Bitches and paid but payment was unscucessful',
-    },  
-  ];
+      id:'234',
+    value: 'pasbook_image',
+    label: 'PasBook',
+    file:'src/data/Unit-01.pdf'
+  },
+  {
+    value: 'payment_failed',
+    label: 'paid but payment was unscucessful',
+    file: 'https://unified-box-doc-storage.s3.us-east-1.amazonaws.com/3ea46456e9c773e75ed4c623adb4eeeec1644c30ec7bf84df9dbe7228fcc5a98?response-content-disposition=inline&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJD%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIQDO1bGGUyxgyoQi10p7N4aTM8wyXW09R6b7ZlpMIr4TaQIgWRVR1ZoBkkhgaYqmNmmoH5tYXr4ot67zT%2F6DRHRdd8YqhAMIuP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgwzMzk3MTMwNTkzNDYiDMRHZNPaODwwFr6LUirYAksdu%2FGqMbcAMZ2JIPEW1J9r3LiEBqQoNAgfKW0gV4IX%2FpDS%2FeZkHNSuF93P94dhYT%2Byio5vU2tM430xY%2FJCTOAYAVvaYYfU5lJQmHF%2B4Xk8NZhsGPS%2BFNNqPs5jGb29ToDPDnGUhZ5I80lyYfSNQp76t2t4FCuVR11G6btzgFeF33ucLsQde3tn4uPdz7vUpfPjxAfFTSV0ErV7fk8bHV%2B068zkFWKtb4GTlmN6foFCsceBBnMRWYLmo%2BPew6DVJxWpV9B%2FDYYVuysRbNnoVL00UaR7OzIlqh8qsZpqkvW%2Fe34FxldDZU5y06lvdSkUqEmjJgZ0j%2FUIhCOqzvkjW12sNn4oNVWsZ4YKf%2BY64V2NYzjNPnkUCaAiuyJgejJPohXLEWzBNQaXoxIJ8HSccCmd%2F3sEnRJR%2F6JwSiKyXbBv38yAj2wTGp3NkYTgXoDWlujqGpVtn5%2FcMKjsw7AGOrMCC3BYKvCeOjvL%2FBaQstJMzeuvs7GXyvapQhbFOaGYzkYzS01xQeXNDeB%2Fd3zjLCkmFcli5Cp0dzwgZPHLRnBtgHCmphtqrO7fzj79DgKiB0DkHTKkyPu0WgYvRCci0ddYT496jYLhkFGfjnEK%2FrXXNPLvMUr%2BLPzu28PkuDVlMMpbm6%2FAxYx3qxAOh48ks%2B9IrvXEb951A4a9LmCTYLkFTpNFqJpNky7vzj5362oBbXc22Z%2BieDOOC4RFcd8Uc8FeCDFmvqJ9TFaAloAHwIpimxNSxY9pB%2BiuH%2B7lBrYjfeTCDiW1LFuWu8S6R3dL5HkIydrIMMml1n3GI8QG4HLlsOfn%2Fne41PqdcC66cRCtWFHXiMJuIe%2BVy8ASq3JpqCGx%2FrQiCUBV6LMGoXqWR%2BJtQPPEww%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20240406T071403Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIAU6GDZ5IJCLVMWIW6%2F20240406%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=716f67c478b4c89abb46827b8351f69040a253c44e8c49e32f1bd00c24907d3e'
+  },  
+];
+useEffect(() => {
+  handleSubmit({ preventDefault: () => { } });
+}, []);
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    setRoom(selectedRowData.id)
+    joinRoom(room)
+    console.log(selectedRowData)
+    try {
+      if (!URL) {
+      console.log('URL is not defined');
+                  return;
+                }
+          
+                const config = {
+                  headers: { 
+                    'Content-Type': 'application/json', 
+                  },
+                };
+          
+                const response = await axios.post(USER_URL+'get_customer_profile/' ,{"id":selectedRowData.customer_id},config);
+                
+                if (!response?.data) {
+                  console.log('Response data is empty');
+                  return;
+                }
+                
+                setCustomerData(response.data)
+                console.log(customerData)
+              } catch (err) {
+                console.log(err);
+                
+    }
+    try {
+      if (!URL) {
+      console.log('URL is not defined');
+                  return;
+                }
+          
+                const config = {
+                  headers: { 
+                    'Content-Type': 'application/json', 
+                    'Authorization': `Bearer ${token}`
+                  },
+                };
+          
+                const response= await axios.get(USER_URL+'customer/'+selectedRowData.customer_id+'/documents',config);
+                if (!response?.data) {
+                  console.log('Response data is empty');
+                  return;
+                }
+                
+                setCustomerDocs(response.data)
+                console.log(customerDocs)
+              } catch (err) {
+                console.log(err);
+                
+    }
+
+    
+  } catch (err) {
+    console.log(err);
+  }
+  }
+  
   
 
   return (
@@ -108,28 +195,14 @@ const ChatView = () => {
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
-
         <Box
           gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
           justifyContent="center"
         >
-            <TextField
-            id="outlined-select-currency"
-            select
-            label="Mode"
-            defaultValue="Active"
-            sx={{ color: colors.greenAccent[600], fontSize: "26px",padding:"auto",m:1,width:"275px" }}
-            >
-              {status.map((option) => (
-                <MenuItem key={option.value} value={option.value} sx={{ color: colors.greenAccent[600] }}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-        </Box>
+            <Transfer id={selectedRowData.id}/>
+          </Box>
       </Box>
 
     
@@ -152,7 +225,7 @@ const ChatView = () => {
           borderRadius={2}
         >      
           <div className="App">
-            {!showChat ? (
+               {!showChat ? (
               <div className="joinChatContainer">
                 <h3>Join A Chat</h3>
                 <input
@@ -174,6 +247,7 @@ const ChatView = () => {
             ) : (
               <Chat socket={socket} username={username} room={room} />
             )}
+            
     </div>
         </Box>
 
@@ -181,8 +255,7 @@ const ChatView = () => {
           gridColumn="span 4"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
-          overflow="auto"
-          height="750px"
+          height="700px"
         >
           <Box
             display="flex"
@@ -193,7 +266,7 @@ const ChatView = () => {
             p="15px"
           >
             <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
-              Costumer Details
+              Customer Details
             </Typography>
           </Box>
             <Box
@@ -217,7 +290,7 @@ const ChatView = () => {
               fontWeight="600"
               color={colors.grey[100]}
               alignItems="center"
-              justifyContent='space-between'>Damnnn</Typography>
+              justifyContent='space-between'>{customerData.name}</Typography>
             </Box>
             <Box
               display="flex"
@@ -232,7 +305,7 @@ const ChatView = () => {
                   variant="h5"
                   fontWeight="600"
                 >
-                  Customer ID : {selectedRowData.costumer_id}
+                  Customer ID : 
                 </Typography>
               </Box>
               <Typography
@@ -240,7 +313,7 @@ const ChatView = () => {
               fontWeight="600"
               color={colors.grey[100]}
               alignItems="center"
-              justifyContent='space-between'>Damnnn</Typography>
+              justifyContent='space-between'>{selectedRowData.customer_id}</Typography>
             </Box>
             <Box
               display="flex"
@@ -255,7 +328,7 @@ const ChatView = () => {
                   variant="h5"
                   fontWeight="600"
                 >
-                  Customer Name :
+                  Account Number :
                 </Typography>
               </Box>
               <Typography
@@ -263,13 +336,13 @@ const ChatView = () => {
               fontWeight="600"
               color={colors.grey[100]}
               alignItems="center"
-              justifyContent='space-between'>Damnnn</Typography>
+              justifyContent='space-between'>{customerData.account_number}</Typography>
             </Box>
             <Box
               display="flex"
               justifyContent="space-between"
               alignItems="center"
-              borderBottom={`100px solid ${colors.primary[500]}`}
+              borderBottom={`30px solid ${colors.primary[500]}`}
               borderRadius={2}
               p="15px"
             >
@@ -279,7 +352,7 @@ const ChatView = () => {
                   variant="h5"
                   fontWeight="600"
                 >
-                  Customer Name :
+                  Complaint Description :
                 </Typography>
               </Box>
               <Typography
@@ -287,143 +360,84 @@ const ChatView = () => {
               fontWeight="600"
               color={colors.grey[100]}
               alignItems="center"
-              justifyContent='space-between'>Damnnn</Typography>
+              justifyContent='space-between'>{selectedRowData.customer_description}</Typography>
             </Box>
             <Box
+              gridColumn="span 8"
+              gridRow="span 2"
+              backgroundColor={colors.primary[400]}
+              overflow="auto"
+              height="200px"
+              borderBottom={`30px solid ${colors.primary[500]}`}
+            >
+            {docs.map((doc, i) => (
+            <Box
+              key={`${docs.id}-${i}`}
               display="flex"
               justifyContent="space-between"
               alignItems="center"
-              borderBottom={`100px solid ${colors.primary[500]}`}
-              borderRadius={2}
+              borderBottom={`4px solid ${colors.primary[500]}`}
               p="15px"
             >
-              <TextField
-            id="outlined-select-currency"
-            select
-            label="Past"
-            defaultValue="Active"
-            sx={{ color: colors.greenAccent[600], fontSize: "26px",padding:"auto",m:1,width:"500px" }}
-            >
-              {past.map((option) => (
-                <MenuItem key={option.value} value={option.value} sx={{ color: colors.greenAccent[600] }}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
+              <Box>
+                <Typography
+                  color={colors.greenAccent[500]}
+                  variant="h5"
+                  fontWeight="600"
+                >
+                  {doc.value}
+                </Typography>
+                <Typography color={colors.grey[100]}>
+                  {doc.label}
+                </Typography>
+              </Box>  
             </Box>
+          ))}
+          </Box>
             <Box
+              gridColumn="span 8"
+              gridRow="span 2"
+              backgroundColor={colors.primary[400]}
+              overflow="auto"
+              height="200px"
+            >
+            {docs.map((doc, i) => (
+            <Box
+              key={`${docs.id}-${i}`}
               display="flex"
               justifyContent="space-between"
               alignItems="center"
-              borderBottom={`100px solid ${colors.primary[500]}`}
-              borderRadius={2}
+              borderBottom={`4px solid ${colors.primary[500]}`}
               p="15px"
+              onClick={() => {
+                if (doc.file) {
+                  setselectedData(doc);
+                  console.log(selectedData);
+                } else {
+                  // Handle cases where doc.file is null (e.g., display a message)
+                  console.error("No file associated with this document");
+                }
+              }}
             >
-              <TextField
-            id="outlined-select-currency"
-            select
-            label="Documents"
-            defaultValue="Active"
-            sx={{ color: colors.greenAccent[600], fontSize: "26px",padding:"auto",m:1,width:"500px" }}
-            >
-              {docs.map((option) => (
-                <MenuItem key={option.value} value={option.value} sx={{ color: colors.greenAccent[600] }}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
+              <Box>
+                <Typography
+                  color={colors.greenAccent[500]}
+                  variant="h5"
+                  fontWeight="600"
+                >
+                  
+                </Typography>
+              </Box>  
             </Box>
-            
+          ))}
+          </Box>
         </Box>
-              
-        
       </Box>
-
     </Box>
   );
 };
 
 export default ChatView;
 
-// class Chat extends React.Component {
-//   constructor() {
-//     super();
-//     this.state = {
-//       messages: [],
-//       curr_user: 0,
-//       socket:null,
-//     };
-//   }
 
-//   componentDidMount() {
-//     // Establish connection on component mount
-//     const socket = io('https://websocket-api-51zi.onrender.com/'); // Replace with your server URL
-//     this.setState({ socket });
-//     let damnn="12233";
 
-//     // Listen for incoming messages from the server
-//     socket.on('receive-msg', (damnn,mess,time) => {
-//       this.setState((prevState) => ({
-//         messages: [...prevState.messages, mess], // Update messages state
-//       }));
-//       console.log("Message aarae bhaii")
-//     });
-//   }
-//   componentWillUnmount() {
-//     // Disconnect from socket on component unmount
-//     const { socket } = this.state;
-//     if (socket) {
-//       socket.disconnect();
-//     }
-//   }
-
-//   onPress(user) {
-//     this.setState({ curr_user: user });
-//   }
-
-//   onMessageSubmit(e) {
-//     const input = this.message;
-//     e.preventDefault();
-//     if (!input.value) {
-//       return false;
-//     }
-//     const message = input.value;
-//     const time = new Date();
-//     const { socket, curr_user } = this.state;
-//     if (socket) {
-//       // Emit message event to the server
-//       socket.emit('chat-with', message, time);
-//       console.log("suiii")
-//     }
-
-//     input.value = "";
-//     return true;
-//   }
-
-//   render() {
-//     return (
-//       <div className="container">
-//         <div className="chatfeed-wrapper">
-//           <ChatFeed
-//             maxHeight={250}
-//             messages={this.state.messages} // Boolean: list of message objects
-//             showSenderName
-//           />
-//           <form onSubmit={e => this.onMessageSubmit(e)}>
-//             <input
-//               ref={m => {
-//                 this.message = m;
-//               }}
-//               placeholder="Type a message..."
-//               className="message-input"
-//             />
-//           </form>
-//           <div
-//             style={{ display: "flex", justifyContent: "center", marginTop: 10 }}
-//           >
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   }
-// }
