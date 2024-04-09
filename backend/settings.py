@@ -92,7 +92,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'eprinter',
+        'NAME': 'eprinterok',
         'USER': 'eprinter_owner',
         'PASSWORD':'Yfolyxzg48WR',
         'HOST':'ep-crimson-surf-a1weguwe.ap-southeast-1.aws.neon.tech',
@@ -141,7 +141,6 @@ USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 MEDIA_URLS ='/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 

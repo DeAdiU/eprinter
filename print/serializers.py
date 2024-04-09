@@ -1,14 +1,19 @@
 from rest_framework import serializers
-
+from random import randint
 from .models import Files
 import PyPDF2 
 ratesofprint={'Single':1.5,'Double':2,'Color':5,'Black and White':1,}
+
+import requests
+
 class FileSerializer(serializers.ModelSerializer):
     price=serializers.SerializerMethodField()
     token=serializers.SerializerMethodField()
+    verifycode=serializers.SerializerMethodField()
+    
     class Meta:
         model=Files
-        fields=['id','token','pdf','Name','category','regNo','Layout','PaperSize','color','PagesPerSheet','printSide','Pages','numberOfCopies','price']
+        fields=['id','token','phone','pdf','Name','category','regNo','Layout','PaperSize','color','PagesPerSheet','printSide','Pages','numberOfCopies','price','verifycode']
 
     def get_price(self,obj):
         file = open(obj.pdf.path, 'rb') 
@@ -30,7 +35,10 @@ class FileSerializer(serializers.ModelSerializer):
             token=token+"P"
         elif obj.category=="Staff":
             token=token+"S"
-        token=token+obj.regNo+'#'+str(obj.id)
+        token=token+'#'+str(obj.id)
         return token
-        
-            
+    
+    def get_verifycode(self,obj):
+        return randint(0,999999)
+    
+    

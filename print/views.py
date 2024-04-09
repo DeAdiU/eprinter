@@ -21,3 +21,4 @@ class ProfessorListView(generics.ListAPIView):
 class FilesViewSets(viewsets.ModelViewSet):
     queryset=Files.objects.all()
     serializer_class=FileSerializer
+    
