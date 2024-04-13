@@ -16,7 +16,7 @@ export default function FirstStep() {
       <TextField required label="Registration Number" value={userData["regNo"]} onChange={(e)=>setUserData({...userData,"regNo":e.target.value})} margin="normal" variant="outlined" color="primary" style={{ width: '30ch' }}/>
       </div>
       <div>
-      <TextField required label="Roll Number" margin="normal" value={userData["rollNo"]} onChange={(e)=>setUserData({...userData,"rollNo":e.target.value})} variant="outlined" color="primary" style={{ width: '30ch' }}/>
+      <TextField required label="Whatsapp Number" margin="normal" value={userData["phone"]} onChange={(e)=>setUserData({...userData,"phone":e.target.value})} variant="outlined" color="primary" style={{ width: '30ch' }}/>
       </div>
     <div>
             <FormControl fullWidth margin="normal">

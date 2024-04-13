@@ -41,7 +41,7 @@ export const Form = () => {
   }
 
   return (
-    <div className="w-full py-[10rem] px-4 bg-gray-100">
+    <div className="w-full py-[10rem] px-4 bg-gray-100" id='forms'>
         <div className='max-w-[1240px] mx-auto grid gap-8'>
             <div className='w-full shadow-xl bg-white flex flex-col p-4 md:my-0 my-8 rounded-lg hover:scale-105 duration-300'>
             <h2 className='text-2xl font-bold text-center py-8'>Enter your details and document</h2>

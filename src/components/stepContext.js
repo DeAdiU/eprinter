@@ -4,7 +4,7 @@ import axios from 'axios';
 import NavBar from './NavBar';
 import Hero from './Hero';
 import Footer from './Footer';
-
+const token='scsgIbAzGz9wbejbd8KjXz9E74CXdvES7L9ZZ5B9f0898bf6'
 
 export const multistepContext = React.createContext();
 
@@ -12,7 +12,7 @@ const StepContext = () => {
   const [currentStep, setStep] = useState(1);
   const [userData, setUserData] = useState([]);
   const [finalData, setFinalData] = useState([]);
-  const [responseData, setResponseData] = useState(null);
+  const [responseData, setResponseData] = useState({});
 
 
   const saveFile = () =>{
@@ -26,6 +26,7 @@ const StepContext = () => {
     let formData = new FormData();
     formData.append("pdf",userData.file)
     formData.append("regNo",userData.regNo)
+    formData.append("phone",userData.phone)
     formData.append("Name",userData.Name)
     formData.append("category",userData.category)
     formData.append("Layout",userData.layout)
@@ -43,15 +44,21 @@ const StepContext = () => {
         }
     }
     console.log(formData)
-    axios.post("http://127.0.0.1:8000/post/files/",formData, axiosConfig).then(
-        response =>{
-            console.log(response.data)
-            setResponseData(response.data);  
-        }
-    ).catch(error =>{
-        console.log(error)
-        setResponseData(null);
+    axios.post("http://127.0.0.1:8000/post/files/",formData, axiosConfig)
+    .then(response => response.data)
+    .then(data => {
+        const newData = Object.keys(data).reduce((acc, key) => {
+            if (data[key] !== null) {
+                acc[key] = data[key];
+            }
+            return acc;
+        }, {});
+        setResponseData(newData);
     })
+    .catch(error => {
+        console.log(error);
+        setResponseData({});
+    });
 }
   return (
     <div>

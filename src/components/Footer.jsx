@@ -10,7 +10,7 @@ import {
 
 const Footer = () => {
   return (
-    <div className='max-w-[1536px] mx-auto py-16 px-4 grid lg:grid-cols-3 gap-8 text-gray-300'>
+    <div className='max-w-[1536px] mx-auto py-16 px-4 grid lg:grid-cols-3 gap-8 text-gray-300' id='footer'>
       <div>
         <h1 className='w-full text-3xl font-bold text-[#00df9a]'>ePrinter.</h1>
         <p className='py-4'>The ultimate site to get your document printed without waiting in a long queue for a long time.</p>

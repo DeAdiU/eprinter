@@ -22,9 +22,10 @@ export default function SecondStep() {
       <div>
       <form action='' onClick={()=> document.querySelector(".input-field").click()} className='upload-files'>
         
-        <input type='file' accept='application/pdf' className='input-field' hidden
-        onChange={({target: {files}})=>{
-            files[0] && setFileName(files[0].name)
+        <input type='file' accept='file' className='input-field' hidden
+        onChange={({target:{files}})=>{
+          files[0] && setFileName(files[0].name)
+            setUserData({...userData,"file":files[0]})
             setImage(null); // Set image to null to just display filename
         }}/>
         {image ?
@@ -45,6 +46,7 @@ export default function SecondStep() {
             <MdDelete onClick={() => {
                 setFileName("No Selected File")
                 setImage(null)
+                setUserData({...userData,"file":null})
             }} />
             </span>
         </section>

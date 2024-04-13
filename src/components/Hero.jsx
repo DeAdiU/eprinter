@@ -2,7 +2,7 @@ import React from 'react';
 import {ReactTyped,Typed} from 'react-typed';
 const Hero = () => {
   return (
-    <div className='text-white'>
+    <div className='text-white' id='home'>
       <div className='max-w-[1280px] mt-[-96px] w-full h-screen mx-auto text-center flex flex-col justify-center'>
         <p className='text-[#00df9a] font-bold p-2'>
         REVOLUTIONIZING PRINTING TECHNOLOGY
