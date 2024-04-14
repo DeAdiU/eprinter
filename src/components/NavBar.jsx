@@ -11,10 +11,14 @@ const NavBar=()=> {
         setNav(!nav)
     }
 
+    const reloadPage = () => {
+        window.location.reload();
+    }
+
 
   return (
     <div className='flex justify-between items-center h-24 max-[1240px] mx-auto px-4 text-white '>
-        <h1 className='w-full text-3xl font-bold text-[#00df9a] hover:cursor-pointer'>ePrinter.</h1>
+        <h1 className='w-full text-3xl font-bold text-[#00df9a] hover:cursor-pointer' onClick={reloadPage}>ePrinter.</h1>
         <ul className='hidden md:flex hover:cursor-pointer'>
             <li className='p-4'><Link activeClass="active" to="home" spy={true} smooth={true} offset={0} duration={500}>Home</Link></li>
             <li className='p-4'><Link activeClass="active" to="forms" spy={true} smooth={true} offset={0} duration={500}>Print</Link></li>
