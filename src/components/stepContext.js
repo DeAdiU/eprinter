@@ -72,7 +72,7 @@ const StepContext = () => {
     "text": `Hello, We have recieved your Document for print. Your print will be delivered soon. Your Order Details \n Token Number: ${responseData.token} \n Price: ${responseData.price} \n Thank you for using our service.`,
     
   }
-  axios.post('http://localhost:3000/api/sendText',data,config)
+  
   return (
     <div>
       
