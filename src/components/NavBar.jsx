@@ -22,7 +22,7 @@ const NavBar=()=> {
         <ul className='hidden md:flex hover:cursor-pointer'>
             <li className='p-4'><Link activeClass="active" to="home" spy={true} smooth={true} offset={0} duration={500}>Home</Link></li>
             <li className='p-4'><Link activeClass="active" to="forms" spy={true} smooth={true} offset={0} duration={500}>Print</Link></li>
-            <li className='p-4'><Link activeClass="active" to="aboutus" spy={true} smooth={true} offset={0} duration={500}>About Us</Link></li>
+            <li className='p-4'><Link activeClass="active" to="aboutMe" spy={true} smooth={true} offset={0} duration={500}>About Us</Link></li>
             <li className='p-4'><Link activeClass="active" to="footer" spy={true} smooth={true} offset={0} duration={500}>Contact</Link></li>
         </ul>
         <div onClick={handleNav} className='flex md:hidden'>
@@ -33,7 +33,7 @@ const NavBar=()=> {
             <ul className=' uppercase p-4 hover:cursor-pointer'>
             <li className='p-4 border-b border-gray-600'><Link activeClass="active" to="home" spy={true} smooth={true} offset={0} duration={500} onClick={handleNav}>Home</Link></li>
             <li className='p-4 border-b border-gray-600'><Link activeClass="active" to="forms" spy={true} smooth={true} offset={100} duration={500} onClick={handleNav}>Print</Link></li>
-            <li className='p-4 border-b border-gray-600'><Link activeClass="active" to="aboutus" spy={true} smooth={true} offset={0} duration={500} onClick={handleNav}>About Us</Link></li>
+            <li className='p-4 border-b border-gray-600'><Link activeClass="active" to="aboutMe" spy={true} smooth={true} offset={0} duration={500} onClick={handleNav}>About Us</Link></li>
             <li className='p-4'><Link activeClass="active" to="footer" spy={true} smooth={true} offset={0} duration={500} onClick={handleNav}>Contact</Link></li>
             </ul>
         </div>

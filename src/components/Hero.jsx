@@ -1,5 +1,7 @@
 import React from 'react';
 import {ReactTyped,Typed} from 'react-typed';
+import { Link } from 'react-scroll';
+
 const Hero = () => {
   return (
     <div className='text-white' id='home'>
@@ -23,7 +25,8 @@ const Hero = () => {
           />
         </div>
        
-        <button className='bg-[#00df9a] w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-black' >Get Started</button>
+        <button className='bg-[#00df9a] w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-black' >
+        <Link activeClass="active" to="forms" spy={true} smooth={true} offset={0} duration={500}>Get Started</Link></button>
        
       </div>
     </div>
