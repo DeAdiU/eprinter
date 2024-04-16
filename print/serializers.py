@@ -13,7 +13,7 @@ class FileSerializer(serializers.ModelSerializer):
     
     class Meta:
         model=Files
-        fields=['id','token','phone','pdf','Name','category','regNo','Layout','PaperSize','color','PagesPerSheet','printSide','Pages','numberOfCopies','price','verifycode']
+        fields=['id','token','phone','pdf','Name','category','regNo','Layout','PaperSize','color','PagesPerSheet','printSide','Pages','numberOfCopies','price','verifycode','status']
 
     def get_price(self,obj):
         file = open(obj.pdf.path, 'rb') 
