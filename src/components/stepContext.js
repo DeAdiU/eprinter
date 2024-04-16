@@ -13,7 +13,7 @@ const StepContext = () => {
   const [currentStep, setStep] = useState(1);
   const [userData, setUserData] = useState([]);
   const [finalData, setFinalData] = useState([]);
-  const [responseData, setResponseData] = useState({});
+  const [responseData, setResponseData] = useState([]);
 
   const saveFile = () => {
     console.log(userData);
@@ -53,6 +53,7 @@ const StepContext = () => {
           }
           return acc;
         }, {});
+        console.log(newData);
         setResponseData(newData);
       })
       .catch((error) => {
@@ -60,9 +61,21 @@ const StepContext = () => {
         setResponseData({});
       });
   };
+  let config ={
+    headers:{
+      "Content-Type": "application/json",
+    }
+  }
+  let data = {
+    "session": "default",
+    "chatId":  "91"+responseData.phone+"@c.us",
+    "text": `Hello, We have recieved your Document for print. Your print will be delivered soon. Your Order Details \n Token Number: ${responseData.token} \n Price: ${responseData.price} \n Thank you for using our service.`,
+    
+  }
+  axios.post('http://localhost:3000/api/sendText',data,config)
   return (
     <div>
-      <AboutUs />
+      
       <NavBar />
       <Hero />
       <multistepContext.Provider
@@ -74,10 +87,12 @@ const StepContext = () => {
           finalData,
           setFinalData,
           saveFile,
+          responseData
         }}
       >
         <Form />
       </multistepContext.Provider>
+      <AboutUs />
 
       <Footer />
     </div>

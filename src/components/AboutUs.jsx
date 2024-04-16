@@ -5,6 +5,9 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import shreeyaImage from "./images/shreeya.jpg";
+import adityaImage from "./images/aditya.jpeg"
+import samyakImage from "./images/samyak.jpeg"
 
 const AboutUs = () => {
   return (
@@ -14,9 +17,10 @@ const AboutUs = () => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "space-around",
-        backgroundColor: "#f3f4f6",
+        backgroundColor: "white",
         padding: "50px",
       }}
+
     >
       {/* Title */}
       <Typography variant="h3" align="center" gutterBottom style={{fontFamily: 'Myraid Pro Regular', fontWeight:"bold", marginBottom:"20px"}}>
@@ -25,11 +29,7 @@ const AboutUs = () => {
 
       {/* First row with 3 cards */}
       <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginBottom: "30px",
-        }}
+        className="mx-auto grid md:grid-cols-3 gap-8 lg:grid-flow-cols-3 "
       >
         <Card
           sx={{
@@ -38,13 +38,11 @@ const AboutUs = () => {
             boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
             transition: "transform 0.3s ease",
             "&:hover": { transform: "scale(1.15)" },
+            backgroundColor: '#F5F5F5',
+            backgroundImage: `url(${adityaImage})`,
+            backgroundSize: 'cover'
           }}
         >
-          <CardMedia
-            sx={{ height: 250, objectFit: "cover" }}
-            image="./images/shreeya.JPG"
-            title="green iguana"
-          />
           <CardContent style={{ padding: "0 10 10 10px" }}>
             <Typography
               gutterBottom
@@ -83,6 +81,7 @@ const AboutUs = () => {
             boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
             transition: "transform 0.3s",
             "&:hover": { transform: "scale(1.15)" },
+            backgroundColor: '#F5F5F5'
           }}
         >
           <CardMedia
@@ -126,6 +125,7 @@ const AboutUs = () => {
             boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
             transition: "transform 0.3s",
             "&:hover": { transform: "scale(1.15)" },
+            backgroundColor: '#F5F5F5'
           }}
         >
           <CardMedia
@@ -163,30 +163,28 @@ const AboutUs = () => {
             </Button>
           </CardActions>
         </Card>
-      </div>
-
-      {/* Second row with 2 cards */}
-      <div style={{ display: "flex", justifyContent: "center" }}>
         <Card
           sx={{
             width: 275,
+            height: 390,
             margin: "0 15px",
             boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
             transition: "transform 0.3s",
             "&:hover": { transform: "scale(1.15)" },
+            backgroundColor: '#F5F5F5',
+            backgroundImage: `url(${samyakImage})`,
+            backgroundSize: 'cover'
           }}
         >
-          <CardMedia
-            sx={{ height: 250 }}
-            image="./images/8.jpg"
-            title="green iguana"
-          />
+          
           <CardContent style={{ padding: "0 10 10 10px" }}>
             <Typography
               gutterBottom
               variant="h6"
               component="div"
               align="center"
+              color='white'
+              fontWeight='bold'
             >
               Samyak Bora
             </Typography>
@@ -219,13 +217,11 @@ const AboutUs = () => {
             boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
             transition: "transform 0.3s",
             "&:hover": { transform: "scale(1.15)" },
+            backgroundColor: '#F5F5F5',
+            backgroundImage: `url(${shreeyaImage})`,
+            backgroundSize: 'cover'
           }}
         >
-          <CardMedia
-            sx={{ height: 250, backgroundColor: "#000000" }}
-            image="./images/shreeya.JPG"
-            title="green iguana"
-          />
           <CardContent style={{ padding: "0 10 10 10px" }}>
             <Typography
               gutterBottom
