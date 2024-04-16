@@ -11,7 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import axios from 'axios'
 import {Button} from "@mui/material";
 import { useNavigate } from "react-router-dom";
-const URL = "https://barcklays.onrender.com/api/employee/dashboard/"
+const SURL = "http://127.0.0.1:8000/"
 let token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6InNvaGFtNCIsImVtYWlsIjoiZW1wb3llZTJAZ21haWwuY29tIiwicm9sZSI6Ik1BTkFHRVIiLCJlbXBsb3llZV9pZCI6IjEyMzQ1Njc4OTYiLCJpYXQiOjE3MTI0MjQ3MjN9.sqq8n5xCdSvYcT-lR2AwaU6BldySg_i9I00uMCUg-pI"
 
 
@@ -20,6 +20,8 @@ const Dashboard = () => {
   const [activeComplaints, setActiveComplaints] = useState([]);
   const [recentResolvedComplaints, setRecentResolvedComplaints] = useState([]);
   const navigate=useNavigate();
+  const [studentList, setStudentList] = useState([]);
+  const [professorList,setProfessorList]=useState([]);
 
   const colors = tokens(theme.palette.mode);
   const currencies = [
@@ -50,28 +52,24 @@ const Dashboard = () => {
 
       const config = {
         headers: { 
-          'Content-Type': 'application/json', 
-          'Authorization': `Bearer ${token}` 
+          'Content-Type': 'application/json',  
         },
       };
 
-      const response = await axios.get(URL, config);
+      const response = await axios.get(SURL+'student/', config);
+      const responseP = await axios.get(SURL+'professor/', config);
 
       if (!response?.data) {
         console.log('Response data is empty');
         return;
       }
       console.log(response.data)
-      setActiveComplaints(response.data.activeComplaints);
-      setRecentResolvedComplaints(response.data.recentResolvedComplaints);
+      setStudentList(response.data)
+      setProfessorList(response.data)
     } catch (err) {
       console.log(err);
     }
   }
-
-  let progress=recentResolvedComplaints.length/(activeComplaints.length+recentResolvedComplaints.length)*100
-  let total=activeComplaints.length+recentResolvedComplaints.length
-  let progressact=(activeComplaints.length/total)*100
   return (
     <Box m="20px">
       {/* HEADER */}
@@ -116,10 +114,10 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title={activeComplaints.length} 
+            title='100'
             subtitle="Number of Active Complaints"
-            progress={activeComplaints.length/total}
-            increase={"+"+progressact+'%'}
+            progress='0.5'
+            increase='100'
             icon={
               <FeedIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -138,7 +136,7 @@ const Dashboard = () => {
             title={recentResolvedComplaints.length}
             subtitle="Number of Resolved Complaints"
             progress={recentResolvedComplaints.length/(activeComplaints.length+recentResolvedComplaints.length)}
-            increase={"+"+progress+'%'}
+            increase='10'
             icon={
               <FactCheckIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -169,7 +167,7 @@ const Dashboard = () => {
         </Box>
 
         <Box
-          gridColumn="span 8"
+          gridColumn="span 6"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
           overflow="auto"
@@ -184,10 +182,10 @@ const Dashboard = () => {
             p="15px"
           >
             <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
-              Assigned Complaints
+              Student
             </Typography>
           </Box>
-          {activeComplaints.map((complain, i) => (
+          {studentList.map((complain, i) => (
             <Box
               key={i}
               display="flex"
@@ -203,10 +201,10 @@ const Dashboard = () => {
                   variant="h5"
                   fontWeight="600"
                 >
-                  {complain.title}
+                  {complain.id}
                 </Typography>
                 <Typography color={colors.grey[100]}>
-                  {complain.product_name}
+                  {complain.name}
                 </Typography>
               </Box>
               <Box color={colors.grey[100]}>{complain.severity}</Box>
@@ -226,7 +224,7 @@ const Dashboard = () => {
         </Box>
 
         <Box
-          gridColumn="span 4"
+          gridColumn="span 6"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
           overflow="auto"
