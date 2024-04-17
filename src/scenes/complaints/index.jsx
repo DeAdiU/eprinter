@@ -81,6 +81,11 @@ const Complaints = () => {
 
     }, 
     {
+      field: "status",
+      headerName: "Status",
+      flex: 1,
+    },
+    {
       field: "created_at",
       headerName: "Created At",
       flex: 1,

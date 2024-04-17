@@ -9,29 +9,51 @@ import CloseIcon from '@mui/icons-material/Close';
 import ArticleIcon from '@mui/icons-material/Article';
 import TextField from '@mui/material/TextField'
 import MenuItem from '@mui/material/MenuItem';
+import Verify from './Verify';
 
 import { Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from '@mui/material';
 const URL='http://127.0.0.1:8000/get-details/'
+const url='http://127.0.0.1:8000/'
+const base='http://127.0.0.1:8000/'
 function PrintView(id={id}) {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const [open, setOpen] = useState(false);
     const [selectedFile, setSelectedFile] = useState({});// Change to null
-    const suii={}
-    const currencies = [
-      {
-        value: 'Active',
-        label: 'Active',
-      },
-      {
-        value: 'Sleep',
-        label: 'Break',
-      },
-      {
-        value: 'Inactive',
-        label: 'Inactive',
-      }, 
-    ];
+    let pdfurl=''
+
+    const forceDownload = (response, title) =>{
+      console.log(response) 
+      const url = window.URL.createObjectURL(new Blob([response.data]))
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute('download', title+'.pdf')
+      document.body.appendChild(link)
+      link.click()
+    }
+    const downloadWithAxios = (url, title)=>{
+        axios({
+            method: 'get',
+            url,
+            responseType: 'arraybuffer'
+        }).then((response)=>{
+            forceDownload(response, title)
+        }).catch((error)=> console.log(error))
+        const config = {
+          headers: { 
+            'Content-Type': 'application/json' 
+          },
+        };
+        const response = axios.put(base+'update-status/'+id.id+'/',{"status":"In Printing", "last_updated_at": new Date()}, config);
+
+        if (!response?.data) {
+          console.log('nothing');
+        }
+        console.log(response.data)
+        
+
+    }
+
     const handleClose = () => {// Clear selected file on close
         setOpen(false);
       };
@@ -48,7 +70,6 @@ function PrintView(id={id}) {
                 'Content-Type': 'application/json' 
               },
             };
-      
             axios
             .get(URL+id.id+'/', config)
             .then((response) => response.data)
@@ -57,11 +78,14 @@ function PrintView(id={id}) {
                 if (data[key] !== null) {
                   acc[key] = data[key];
                 }
+
                 return acc;
               }, {});
               console.log(newData)
               setSelectedFile(newData);
               console.log(selectedFile)
+              pdfurl=url+newData.pdf
+              console.log(pdfurl)
             })
             .catch((error) => {
               console.log(error);
@@ -312,8 +336,8 @@ function PrintView(id={id}) {
         padding='10px'
         
         >
-          <Button color='secondary' variant='contained'>Verify</Button>
-          <Button color='secondary' variant='contained'>Print</Button>
+          <Verify id={selectedFile.id}/>
+          <Button color='secondary' variant='contained' onClick={()=>downloadWithAxios(url+selectedFile.pdf,selectedFile.id)}>Print</Button>
           <Button color='secondary' variant='contained'>Update</Button>
         </Box>
 

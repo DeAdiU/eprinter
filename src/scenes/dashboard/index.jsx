@@ -185,9 +185,9 @@ const Dashboard = () => {
             <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
               Student
             </Typography>
-          </Box>
-          {studentList.map((complain, i) => (
-            <Box
+          </Box>DeAdiU/eprinter
+          {studentList.filter(student => student.status==="UPLOADED").map((complain, i) => (
+            <Box  
               key={i}
               display="flex"
               justifyContent="space-between"
