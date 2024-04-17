@@ -35,7 +35,7 @@ class FileStatusSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
     
-    
+
 
 @api_view(['PUT'])
 def update_status(request, pk):

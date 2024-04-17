@@ -16,4 +16,5 @@ urlpatterns = [
     path('professor/', ProfessorListView.as_view(), name='user-post-list'),
     path('update-status/<int:pk>/', update_status, name='update-status'),
     path('get-details/<int:pk>/',get_file_detail, name='get-details'),
+    
 ]

@@ -18,7 +18,6 @@ class Files(models.Model):
     Pages=models.CharField(max_length=150,default="All")
     numberOfCopies=models.IntegerField(default=1)
     Layout=models.CharField(max_length=150,default="Potrait")
-    whatsapp=models.CharField(max_length=255,default="9426034129")
     status=models.CharField(max_length=255,default='UPLOADED')
     
     def __str__(self):
