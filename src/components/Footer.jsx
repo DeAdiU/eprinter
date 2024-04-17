@@ -21,7 +21,6 @@ const Footer = () => {
               <a href='https://www.instagram.com/'><FaInstagram size={30} /></a>
               <FaTwitterSquare size={30} />
               <FaGithubSquare size={30} />
-              <FaDribbbleSquare size={30} />
             </div>
           </div>
           <div className='lg:col-span-2 flex justify-between mt-6'>

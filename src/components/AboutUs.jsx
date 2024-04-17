@@ -69,9 +69,9 @@ const AboutUs = () => {
             >
               Aditya Uttarwar
             </Typography>
-            <Typography variant="body2" color="text.secondary" align="center">
+            {/* <Typography variant="body2" color="text.secondary" align="center">
               Content
-            </Typography>
+            </Typography> */}
           </CardContent>
           <CardActions
             style={{ justifyContent: "flex-end", margin: "0 3px 3px 0" }}
@@ -121,9 +121,9 @@ const AboutUs = () => {
             >
               Aryan Sivanandan
             </Typography>
-            <Typography variant="body2" color="text.secondary" align="center">
+            {/* <Typography variant="body2" color="text.secondary" align="center">
               Content
-            </Typography>
+            </Typography> */}
           </CardContent>
           <CardActions
             style={{ justifyContent: "flex-end", margin: "0 3px 3px 0" }}
@@ -175,9 +175,9 @@ const AboutUs = () => {
             >
               Aryan Babre
             </Typography>
-            <Typography variant="body2" color="text.secondary" align="center">
+            {/* <Typography variant="body2" color="text.secondary" align="center">
               Content
-            </Typography>
+            </Typography> */}
           </CardContent>
           <CardActions
             style={{ justifyContent: "flex-end", margin: "0 3px 3px 0" }}
@@ -230,9 +230,9 @@ const AboutUs = () => {
             >
               Samyak Bora
             </Typography>
-            <Typography variant="body2" color="text.secondary" align="center">
+            {/* <Typography variant="body2" color="text.secondary" align="center">
               Content
-            </Typography>
+            </Typography> */}
           </CardContent>
           <CardActions
             style={{ justifyContent: "flex-end", margin: "0 3px 3px 0" }}
@@ -284,9 +284,9 @@ const AboutUs = () => {
             >
               Shreeya Daga
             </Typography>
-            <Typography variant="body2" color="text.secondary" align="center">
+            {/* <Typography variant="body2" color="text.secondary" align="center">
               Content
-            </Typography>
+            </Typography> */}
           </CardContent>
           <CardActions
             style={{ justifyContent: "flex-end", margin: "0 3px 3px 0" }}
