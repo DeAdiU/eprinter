@@ -128,8 +128,10 @@ export default function ThirdStep() {
                         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
 
                             Please collect your print from print station.
-                            <p>Price:</p>
-                            {responseData && (<pre className='text-l ' dangerouslySetInnerHTML={{ __html: JSON.stringify(responseData.token, null, 2) }} />)}
+                            <p>Price: {responseData && (<pre className='text-l ' dangerouslySetInnerHTML={{ __html: JSON.stringify(responseData.price, null, 2) }} />)}</p>
+                            
+                            <p>Verification Code:  {responseData && (<pre className='text-l ' dangerouslySetInnerHTML={{ __html: JSON.stringify(responseData.verifycode, null, 2) }} />)}</p>
+                           
                             <Button onClick={handleClose} variant='contained'>
                             CLOSE ME
                             </Button>

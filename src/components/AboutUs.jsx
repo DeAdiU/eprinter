@@ -44,6 +44,7 @@ const AboutUs = () => {
       <Card
           sx={{
             width: 275,
+            height: 445,
             margin: "0 15px",
             boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
             transition: "transform 0.3s ease",
@@ -96,6 +97,7 @@ const AboutUs = () => {
         <Card
           sx={{
             width: 275,
+            height: 445,
             margin: "0 15px",
             boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
             transition: "transform 0.3s ease",
