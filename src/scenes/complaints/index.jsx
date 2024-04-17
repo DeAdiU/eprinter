@@ -6,14 +6,16 @@ import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 import {Typography} from "@mui/material";
 import ChatView from "../chatview";
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+const SURL = "http://127.0.0.1:8000/"
 const Complaints = () => {
   const theme = useTheme();
   const navigate=useNavigate()
   const colors = tokens(theme.palette.mode);
   const [selectedRow,setselectedRow] = useState(null);
+  const [printList,setPrintList]=useState([])
   const handleRowClick = (params) => { 
     const complaintId = params.row.id;   
     if(params.row.status=="Open"){
@@ -24,54 +26,71 @@ const Complaints = () => {
       console.log(selectedRow)// Route to ChatView with state
   }
   }
+}
+  useEffect(() => {
+    handleSubmit({ preventDefault: () => { } });
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (!URL) {
+        console.log('URL is not defined');
+        return;
+      }
+
+      const config = {
+        headers: { 
+          'Content-Type': 'application/json',  
+        },
+      };
+
+      const response = await axios.get(SURL, config);
+
+      if (!response?.data) {
+        console.log('Response data is empty');
+        return;
+      }
+      console.log(response.data)
+      setPrintList(response.data)
+      console.log(printList)
+    } catch (err) {
+      console.log(err);
+    }
+
 };
 
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
-    { field: "product_id", headerName: "Product ID" },
+    { field: "Name", headerName: "Name", flex: 1},
     {
-      field: "costumer_id" ,
-      headerName: "Costumer ID",
+      field: "regNo" ,
+      headerName: "Registration Number",
       flex: 1,
-      cellClassName: "name-column--cell",
     },
     {
-      field: "employee_id",
-      headerName: "Employee ID",
-      type: "number",
+      field: "phone",
+      headerName: "Phone Number",
       headerAlign: "left",
       align: "left",
     },
     {
-      field: "severity",
-      headerName: "Severity",
+      field: "price",
+      headerName: "Price",
       flex: 1,
-    },
+
+    }, 
     {
-      field: "type",
-      headerName: "Type",
-      flex: 1,
-    },
-    {
-      field: "created",
+      field: "created_at",
       headerName: "Created At",
       flex: 1,
     },
     {
-      field: "last_updated",
+      field: "last_updated_at",
       headerName: "Last Updated",
       flex: 1,
     },
-    {
-      field: "resolved_at",
-      headerName: "Resolved At",
-      flex: 1,
-    },
-    {
-      field: "status",
-      headerName: "Status",
-      flex: 1,
-    },
+    
 
   ];
 
@@ -114,7 +133,7 @@ const Complaints = () => {
         }}
       >
         <DataGrid
-          rows={complaintData}
+          rows={printList}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
           onRowClick={handleRowClick}

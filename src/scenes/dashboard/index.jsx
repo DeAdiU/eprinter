@@ -9,6 +9,7 @@ import StatBox from "../../components/StatBox";
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import axios from 'axios'
+import PrintView from "./PrintView";
 import {Button} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 const SURL = "http://127.0.0.1:8000/"
@@ -95,7 +96,7 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title={activeComplaints.length+recentResolvedComplaints.length}
+            title={studentList.length+professorList.length}
             subtitle="Total number of complaints"
             progress="1"
             increase={'+100%'}
@@ -208,21 +209,10 @@ const Dashboard = () => {
                 </Typography>
               </Box>
               <Box color={colors.grey[100]}>{complain.severity}</Box>
-              <Button
-                variant="contained"
-                color='secondary'
-                p="5px 10px"
-                borderRadius="4px"
-                onClick={() => {
-                  navigate(`/${complain.id}`, { state: complain });
-                }}
-              >
-                {complain.status}
-              </Button>
+              <PrintView id={complain.id}/>
             </Box>
           ))}
         </Box>
-
         <Box
           gridColumn="span 6"
           gridRow="span 2"
@@ -242,7 +232,7 @@ const Dashboard = () => {
               Recently Solved Complaints
             </Typography>
           </Box>
-          {recentResolvedComplaints.map((solve, i) => (
+          {professorList.map((solve, i) => (
             <Box
               display="flex"
               justifyContent="space-between"
