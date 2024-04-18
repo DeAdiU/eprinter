@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.validators import RegexValidator
 from django.core.validators import MinValueValidator, MaxValueValidator
-
+from random import randint
 # Create your models here.
 
 class Files(models.Model):
@@ -19,6 +19,9 @@ class Files(models.Model):
     numberOfCopies=models.IntegerField(default=1)
     Layout=models.CharField(max_length=150,default="Potrait")
     status=models.CharField(max_length=255,default='UPLOADED')
+    verifycode=models.IntegerField(default=randint(100000,999999))
+    created_at = models.DateTimeField(auto_now=True)
+    last_updated_at= models.DateTimeField(null=True)
     
     def __str__(self):
         return self.pdf

@@ -9,11 +9,11 @@ import requests
 class FileSerializer(serializers.ModelSerializer):
     price=serializers.SerializerMethodField()
     token=serializers.SerializerMethodField()
-    verifycode=serializers.SerializerMethodField()
+    
     
     class Meta:
         model=Files
-        fields=['id','token','phone','pdf','Name','category','regNo','Layout','PaperSize','color','PagesPerSheet','printSide','Pages','numberOfCopies','price','verifycode','status']
+        fields=['id','token','phone','pdf','Name','category','regNo','Layout','PaperSize','color','PagesPerSheet','printSide','Pages','numberOfCopies','price','verifycode','status','created_at','last_updated_at']
 
     def get_price(self,obj):
         file = open(obj.pdf.path, 'rb') 
@@ -38,7 +38,6 @@ class FileSerializer(serializers.ModelSerializer):
         token=token+'#'+str(obj.id)
         return token
     
-    def get_verifycode(self,obj):
-        return randint(0,999999)
+    
     
     
