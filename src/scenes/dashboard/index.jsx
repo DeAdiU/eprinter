@@ -66,7 +66,7 @@ const Dashboard = () => {
       }
       console.log(response.data)
       setStudentList(response.data)
-      setProfessorList(response.data)
+      setProfessorList(responseP.data)
     } catch (err) {
       console.log(err);
     }
@@ -97,7 +97,7 @@ const Dashboard = () => {
         >
           <StatBox
             title={studentList.length+professorList.length}
-            subtitle="Total number of complaints"
+            subtitle="Total number of Requests"
             progress="1"
             increase={'+100%'}
             icon={
@@ -115,8 +115,8 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title='100'
-            subtitle="Number of Active Complaints"
+            title={professorList.length}
+            subtitle="Number of Professor Requests"
             progress='0.5'
             increase='100'
             icon={
@@ -134,10 +134,9 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title={recentResolvedComplaints.length}
-            subtitle="Number of Resolved Complaints"
-            progress={recentResolvedComplaints.length/(activeComplaints.length+recentResolvedComplaints.length)}
-            increase='10'
+            title={studentList.length}
+            subtitle="Number of Student Requests"
+            increase={'+'+100+'%'}
             icon={
               <FactCheckIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -147,24 +146,11 @@ const Dashboard = () => {
         </Box>
         <Box
           gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
           justifyContent="center"
         >
-            <TextField
-            id="outlined-select-currency"
-            select
-            label="Mode"
-            defaultValue="Active"
-            sx={{ color: colors.greenAccent[600], fontSize: "26px",padding:"auto",m:1,width:"275px" }}
-            >
-              {currencies.map((option) => (
-                <MenuItem key={option.value} value={option.value} sx={{ color: colors.greenAccent[600] }}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
+              <Button onClick={handleSubmit} variant="contained" color="secondary">Refresh</Button>
         </Box>
 
         <Box
@@ -185,8 +171,8 @@ const Dashboard = () => {
             <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
               Student
             </Typography>
-          </Box>DeAdiU/eprinter
-          {studentList.filter(student => student.status==="UPLOADED").map((complain, i) => (
+          </Box>
+          {studentList.filter(student => student.status==="UPLOADED"||student.status==="IN PRINTING").map((complain, i) => (
             <Box  
               key={i}
               display="flex"
@@ -205,10 +191,10 @@ const Dashboard = () => {
                   {complain.id}
                 </Typography>
                 <Typography color={colors.grey[100]}>
-                  {complain.name}
+                  {complain.Name}
                 </Typography>
               </Box>
-              <Box color={colors.grey[100]}>{complain.severity}</Box>
+              <Box color={colors.grey[100]}>{complain.status}</Box>
               <PrintView id={complain.id}/>
             </Box>
           ))}
@@ -229,7 +215,7 @@ const Dashboard = () => {
             p="15px"
           >
             <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
-              Recently Solved Complaints
+              Professor
             </Typography>
           </Box>
           {professorList.map((solve, i) => (
@@ -246,10 +232,10 @@ const Dashboard = () => {
                   variant="h5"
                   fontWeight="600"
                 >
-                  {solve.title}
+                  {solve.id}
                 </Typography>
                 <Typography color={colors.grey[100]}>
-                  {solve.product_name}
+                  {solve.Name}
                 </Typography>
               </Box>
               <Box color={colors.grey[100]}>{solve.resolution_time}</Box>

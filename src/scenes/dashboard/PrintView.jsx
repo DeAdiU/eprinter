@@ -39,19 +39,21 @@ function PrintView(id={id}) {
         }).then((response)=>{
             forceDownload(response, title)
         }).catch((error)=> console.log(error))
-        const config = {
-          headers: { 
-            'Content-Type': 'application/json' 
-          },
-        };
-        const response = axios.put(base+'update-status/'+id.id+'/',{"status":"In Printing", "last_updated_at": new Date()}, config);
+        
+    }
+
+    const handleUpdate = async (e) =>{
+      const config = {
+        headers: { 
+          'Content-Type': 'application/json' 
+        },
+      };
+      const response = axios.put(base+'update-status/'+id.id+'/',{"status":"IN PRINTING", "last_updated_at": new Date()}, config);
 
         if (!response?.data) {
           console.log('nothing');
         }
         console.log(response.data)
-        
-
     }
 
     const handleClose = () => {// Clear selected file on close
@@ -84,8 +86,7 @@ function PrintView(id={id}) {
               console.log(newData)
               setSelectedFile(newData);
               console.log(selectedFile)
-              pdfurl=url+newData.pdf
-              console.log(pdfurl)
+              
             })
             .catch((error) => {
               console.log(error);
@@ -104,8 +105,7 @@ function PrintView(id={id}) {
                 p="5px 10px"
                 borderRadius="4px"
                 onClick={handleDetails}>
-                
-            Print
+                Print
             </Button>
             <Dialog open={open} onClose={handleClose} maxWidth="lg" fullWidth sx={{ '& .MuiPaper-root': { background: `${colors.primary[500]}`},}} >
           <DialogTitle sx={{fontWeight:'bold',fontSize:'20px'}}>
@@ -338,7 +338,7 @@ function PrintView(id={id}) {
         >
           <Verify id={selectedFile.id}/>
           <Button color='secondary' variant='contained' onClick={()=>downloadWithAxios(url+selectedFile.pdf,selectedFile.id)}>Print</Button>
-          <Button color='secondary' variant='contained'>Update</Button>
+          <Button color='secondary' variant='contained' onClick={handleUpdate}>Update</Button>
         </Box>
 
         
