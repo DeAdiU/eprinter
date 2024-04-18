@@ -16,7 +16,7 @@ export default function SecondStep() {
   return (
     <div className='step'>
       <div>
-      <TextField id="pages" margin="normal" label="Pages" type="text" value={userData["Pages"]} defaultValue={"All"} onChange={(e)=>setUserData({...userData,"Pages":e.target.value})} style={{ marginTop: '12px', marginRight: '16px' }}/>
+      <TextField id="pages" margin="normal" label="Pages" type="text" value={userData["Pages"]} onChange={(e)=>setUserData({...userData,"Pages":e.target.value})} style={{ marginTop: '12px', marginRight: '16px' }}/>
       </div>
       
       <div>
