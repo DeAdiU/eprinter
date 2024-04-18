@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box,Button } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { complaintData } from "../../data/mockData";
@@ -8,6 +8,7 @@ import {Typography} from "@mui/material";
 import ChatView from "../chatview";
 import { useState,useEffect } from "react";
 import axios from "axios";
+import PrintView from "../dashboard/PrintView";
 import { useNavigate } from "react-router-dom";
 const SURL = "http://127.0.0.1:8000/"
 const Complaints = () => {
@@ -22,7 +23,7 @@ const Complaints = () => {
     setselectedRow(params.row); // Update state with selected row data
   
     if (selectedRow) {
-      navigate(`/${complaintId}`, { state: selectedRow }); 
+      <PrintView id={selectedRow.id} />
       console.log(selectedRow)// Route to ChatView with state
   }
   }
@@ -95,6 +96,16 @@ const Complaints = () => {
       headerName: "Last Updated",
       flex: 1,
     },
+    {
+      field: "action",
+      headerName: "Action",
+      flex: 1,
+      renderCell: (params) => {
+        return (
+          <PrintView id={params.id}/>
+        );
+      },
+    }
     
 
   ];

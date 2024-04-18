@@ -20,7 +20,6 @@ function PrintView(id={id}) {
     const colors = tokens(theme.palette.mode);
     const [open, setOpen] = useState(false);
     const [selectedFile, setSelectedFile] = useState({});// Change to null
-    let pdfurl=''
 
     const forceDownload = (response, title) =>{
       console.log(response) 

@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import { Button,useTheme,Box,Typography } from '@mui/material'
+import { Button,useTheme,Box,Typography,Alert } from '@mui/material'
 import { tokens } from "../../theme";
 import axios from 'axios'
 import TextField from '@mui/material/TextField'
@@ -11,10 +11,13 @@ function Verify(id={id}) {
     const [open, setOpen] = useState(false);
     const [selectedFile, setSelectedFile] = useState({});
     const [code,setCode]=useState('')
+    const [alertOpen, setAlertOpen] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
     const URL='http://127.0.0.1:8000/get-details/'
     const base='http://127.0.0.1:8000/'
     const handleClose = () => {// Clear selected file on close
         setOpen(false);
+        setAlertOpen(false);
       };
     const handleDetails = async (e) =>{
         setOpen(true)
@@ -58,10 +61,23 @@ function Verify(id={id}) {
             console.log('Attempting to verify');
             console.log('selectedFile.verifycode:', selectedFile.verifycode);
             console.log('code:', code);
-            setOpen(false);
-            console.log('Verified!');
+            setAlertOpen(true);
+            setAlertMessage('Verified!');
+            const config = {
+              headers: { 
+                'Content-Type': 'application/json' 
+              },
+            };
+            const response = axios.put(base+'update-status/'+id.id+'/',{"status":"VERIFIED", "last_updated_at": new Date()}, config);
+      
+              if (!response?.data) {
+                console.log('nothing');
+              }
+              console.log(response.data)
         } else {
             console.log('Verification failed');
+            setAlertOpen(true);
+            setAlertMessage('Verification failed');
         }
     }
   return (
@@ -102,8 +118,9 @@ function Verify(id={id}) {
             <Button color='secondary' variant='contained' sx={{marginTop:'40px',marginLeft:'125px',width:'150px'}} onClick={handleVerify}>Verify</Button>
 
           </Box>
-
-
+          <Alert severity={alertOpen ? ( code === String(selectedFile.verifycode) ? 'success' : 'error') : 'info'} sx={{marginTop:'40px'}}>
+            {alertMessage}
+          </Alert>
           </DialogContent>
         </Dialog>
     </div>

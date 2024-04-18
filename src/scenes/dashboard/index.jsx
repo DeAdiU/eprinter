@@ -6,39 +6,19 @@ import Header from "../../components/Header";
 import FeedIcon from '@mui/icons-material/Feed';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
 import StatBox from "../../components/StatBox";
-import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
 import axios from 'axios'
 import PrintView from "./PrintView";
 import {Button} from "@mui/material";
-import { useNavigate } from "react-router-dom";
 const SURL = "http://127.0.0.1:8000/"
 let token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6InNvaGFtNCIsImVtYWlsIjoiZW1wb3llZTJAZ21haWwuY29tIiwicm9sZSI6Ik1BTkFHRVIiLCJlbXBsb3llZV9pZCI6IjEyMzQ1Njc4OTYiLCJpYXQiOjE3MTI0MjQ3MjN9.sqq8n5xCdSvYcT-lR2AwaU6BldySg_i9I00uMCUg-pI"
 
 
 const Dashboard = () => {
   const theme = useTheme();
-  const [activeComplaints, setActiveComplaints] = useState([]);
-  const [recentResolvedComplaints, setRecentResolvedComplaints] = useState([]);
-  const navigate=useNavigate();
   const [studentList, setStudentList] = useState([]);
   const [professorList,setProfessorList]=useState([]);
 
   const colors = tokens(theme.palette.mode);
-  const currencies = [
-    {
-      value: 'Active',
-      label: 'Active',
-    },
-    {
-      value: 'Sleep',
-      label: 'Break',
-    },
-    {
-      value: 'Inactive',
-      label: 'Inactive',
-    }, 
-  ];
   useEffect(() => {
     handleSubmit({ preventDefault: () => { } });
   }, []);
@@ -218,7 +198,7 @@ const Dashboard = () => {
               Professor
             </Typography>
           </Box>
-          {professorList.map((solve, i) => (
+          {professorList.filter(professor => professor.status==="UPLOADED"||professor.status==="IN PRINTING").map((solve, i) => (
             <Box
               display="flex"
               justifyContent="space-between"
