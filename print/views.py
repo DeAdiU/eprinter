@@ -25,16 +25,6 @@ class FilesViewSets(viewsets.ModelViewSet):
     serializer_class=FileSerializer
 
 
-class FileStatusSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Files
-        fields = ('status',)
-        extra_kwargs = {'status': {'required': True}}
-
-    def update(self, instance, validated_data):
-        instance.status = validated_data.get('status', instance.status)
-        instance.save()
-        return instance
     
 class UpdateView(APIView):
   def get_object(self, pk):
