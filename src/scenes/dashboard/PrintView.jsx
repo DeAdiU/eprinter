@@ -2,13 +2,7 @@ import React,{useState} from 'react'
 import { Button,useTheme,Box,Typography } from '@mui/material'
 import { tokens } from "../../theme";
 import axios from 'axios'
-import FeedIcon from '@mui/icons-material/Feed';
-import FactCheckIcon from '@mui/icons-material/FactCheck';
-import StatBox from "../../components/StatBox";
 import CloseIcon from '@mui/icons-material/Close';
-import ArticleIcon from '@mui/icons-material/Article';
-import TextField from '@mui/material/TextField'
-import MenuItem from '@mui/material/MenuItem';
 import Verify from './Verify';
 
 import { Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from '@mui/material';
@@ -104,7 +98,7 @@ function PrintView(id={id}) {
                 p="5px 10px"
                 borderRadius="4px"
                 onClick={handleDetails}>
-                Print
+                View
             </Button>
             <Dialog open={open} onClose={handleClose} maxWidth="lg" fullWidth sx={{ '& .MuiPaper-root': { background: `${colors.primary[500]}`},}} >
           <DialogTitle sx={{fontWeight:'bold',fontSize:'20px'}}>

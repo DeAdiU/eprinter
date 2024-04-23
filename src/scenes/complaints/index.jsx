@@ -1,11 +1,9 @@
 import { Box,Button } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { complaintData } from "../../data/mockData";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
-import {Typography} from "@mui/material";
-import ChatView from "../chatview";
+
 import { useState,useEffect } from "react";
 import axios from "axios";
 import PrintView from "../dashboard/PrintView";
@@ -113,8 +111,8 @@ const Complaints = () => {
   return (
     <Box m="20px">
       <Header
-        title="Complaints"
-        subtitle="List of Conplaints for Monitoring"
+        title="Requests"
+        subtitle="List of Requests for Monitoring"
       />
       <Box
         m="40px 0 0 0"

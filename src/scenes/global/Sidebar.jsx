@@ -4,13 +4,8 @@ import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
-import SendIcon from '@mui/icons-material/Send';
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
-
-import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
-
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 
 
@@ -77,7 +72,7 @@ const Sidebar = () => {
                 ml="15px"
               >
                 <Typography variant="h3" color={colors.grey[100]}>
-                  SUPERVISOR
+                  ADMIN
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -130,23 +125,8 @@ const Sidebar = () => {
             </Typography>
             <Item
               title="Requests"
-              to="/complaints"
+              to="/requests"
               icon={<ContactsOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Options
-            </Typography>
-            <Item
-              title="Send Notification"
-              to="/notify"
-              icon={<SendIcon/>}
               selected={selected}
               setSelected={setSelected}
             />

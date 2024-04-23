@@ -10,8 +10,6 @@ import axios from 'axios'
 import PrintView from "./PrintView";
 import {Button} from "@mui/material";
 const SURL = "http://127.0.0.1:8000/"
-let token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6InNvaGFtNCIsImVtYWlsIjoiZW1wb3llZTJAZ21haWwuY29tIiwicm9sZSI6Ik1BTkFHRVIiLCJlbXBsb3llZV9pZCI6IjEyMzQ1Njc4OTYiLCJpYXQiOjE3MTI0MjQ3MjN9.sqq8n5xCdSvYcT-lR2AwaU6BldySg_i9I00uMCUg-pI"
-
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -88,7 +86,7 @@ const Dashboard = () => {
           />
         </Box>
         <Box
-          gridColumn="span 3"
+          gridColumn="span 4"
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
@@ -107,7 +105,7 @@ const Dashboard = () => {
           />
         </Box>
         <Box
-          gridColumn="span 3"
+          gridColumn="span 4"
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
@@ -125,7 +123,7 @@ const Dashboard = () => {
           />
         </Box>
         <Box
-          gridColumn="span 3"
+          gridColumn="span 1"
           display="flex"
           alignItems="center"
           justifyContent="center"
@@ -218,11 +216,12 @@ const Dashboard = () => {
                   {solve.Name}
                 </Typography>
               </Box>
-              <Box color={colors.grey[100]}>{solve.resolution_time}</Box>
               <Box
               >
                 {solve.status}
               </Box>
+              <PrintView id={solve.id}/>
+
             </Box>
           ))}
         </Box>
