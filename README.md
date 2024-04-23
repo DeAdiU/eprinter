@@ -24,13 +24,17 @@ yarn run test
 
 ## Author
 
-👤 **Aditya Uttarwar**                                                        👤 **Aditya Uttarwar**  
+👤 **Aditya Uttarwar**                                                      
+* Github: [@DeAdiU](https://github.com/DeAdiU)                          
 
-* Github: [@DeAdiU](https://github.com/DeAdiU)                               * Github: [@DeAdiU](https://github.com/DeAdiU)
+👤 **Shreeya Daga**                                                      
+* Github: [@ShreeyaDaga](https://github.com/ShreeyaDaga)
 
-👤 **Aditya Uttarwar**                                                        👤 **Aditya Uttarwar**  
+👤 **Aryan Sivanandan**                                                      
+* Github: [@AryanSivanandan](https://github.com/AryanSivanandan)
 
-* Github: [@DeAdiU](https://github.com/DeAdiU)                               * Github: [@DeAdiU](https://github.com/DeAdiU)
+👤 **Aditya Uttarwar**                                                      
+* Github: [@DeAdiU](https://github.com/DeAdiU)   
 
 ## Show your support
 
