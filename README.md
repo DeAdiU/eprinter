@@ -33,8 +33,8 @@ yarn run test
 👤 **Aryan Sivanandan**                                                      
 * Github: [@AryanSivanandan](https://github.com/AryanSivanandan)
 
-👤 **Aditya Uttarwar**                                                      
-* Github: [@DeAdiU](https://github.com/DeAdiU)   
+👤 **Samyak Bora**                                                      
+* Github: [@Samyakkb1008](https://github.com/Samyakkb1008)   
 
 ## Show your support
 
