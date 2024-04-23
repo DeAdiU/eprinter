@@ -24,9 +24,17 @@ yarn run test
 
 ## Author
 
-👤 **Aditya Uttarwar**
+👤 **Aditya Uttarwar**                                                      
+* Github: [@DeAdiU](https://github.com/DeAdiU)                          
 
-* Github: [@DeAdiU](https://github.com/DeAdiU)
+👤 **Shreeya Daga**                                                      
+* Github: [@ShreeyaDaga](https://github.com/ShreeyaDaga)
+
+👤 **Aryan Sivanandan**                                                      
+* Github: [@AryanSivanandan](https://github.com/AryanSivanandan)
+
+👤 **Samyak Bora**                                                      
+* Github: [@Samyakkb1008](https://github.com/Samyakkb1008)  
 
 ## Show your support
 
