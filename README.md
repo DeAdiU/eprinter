@@ -18,10 +18,17 @@ python manage.py runserver
 ```
 
 ## Author
+👤 **Aditya Uttarwar**                                                      
+* Github: [@DeAdiU](https://github.com/DeAdiU)                          
 
-👤 **Aditya Uttarwar**
+👤 **Shreeya Daga**                                                      
+* Github: [@ShreeyaDaga](https://github.com/ShreeyaDaga)
 
-* Github: [@DeAdiU](https://github.com/DeAdiU)
+👤 **Aryan Sivanandan**                                                      
+* Github: [@AryanSivanandan](https://github.com/AryanSivanandan)
+
+👤 **Samyak Bora**                                                      
+* Github: [@Samyakkb1008](https://github.com/Samyakkb1008)  
 
 ## Show your support
 
